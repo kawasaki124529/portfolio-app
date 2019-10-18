@@ -2,9 +2,9 @@ FROM node:12.9.0-alpine
 
 ENV HOME="/app" \
     LANG=C.UTF-8 \
-    TZ=Asia/Tokyo 
+    TZ=Asia/Tokyo
     
-ENV HOST 0.0.0.0    
+ENV HOST 0.0.0.0
 
 WORKDIR ${HOME}
 
