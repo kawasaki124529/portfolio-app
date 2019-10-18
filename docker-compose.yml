@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./back/tmp/db:/var/lib/mysql
+
+  back:
+    build: ./back
+    command: /bin/sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s -b ${BACKEND_HOST}"
+    volumes:
+      - ./back:/app
+      - backend-bundle:/usr/local/bundle
+    depends_on:
+      - db
+    ports:
+      - ${BACKEND_PORT}:3000
+    tty: true
+
+  front:
+    build: ./front
+    command: /bin/sh -c "yarn dev"
+    volumes:
+      - ./front:/app
+      - frontend-node_modules:/app/node_modules
+    ports:
+      - ${FRONTEND_PORT}:3000
+    tty: true
+volumes:
+  backend-bundle:
+  frontend-node_modules:
