@@ -1,6 +1,6 @@
 # app
 
-> My smashing Nuxt.js project
+> My splendiferous Nuxt.js project
 
 ## Build Setup
 

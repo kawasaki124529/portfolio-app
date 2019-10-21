@@ -4,12 +4,17 @@ import ClientOnly from 'vue-client-only'
 import NoSsr from 'vue-no-ssr'
 import { createRouter } from './router.js'
 import NuxtChild from './components/nuxt-child.js'
-import NuxtError from './components/nuxt-error.vue'
+import NuxtError from '../layouts/error.vue'
 import Nuxt from './components/nuxt.js'
 import App from './App.js'
 import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 
 /* Plugins */
+
+import nuxt_plugin_workbox_6cf6843c from 'nuxt_plugin_workbox_6cf6843c' // Source: ./workbox.js (mode: 'client')
+import nuxt_plugin_nuxticons_76c83a7c from 'nuxt_plugin_nuxticons_76c83a7c' // Source: ./nuxt-icons.js (mode: 'all')
+import nuxt_plugin_plugin_55867a84 from 'nuxt_plugin_plugin_55867a84' // Source: ./vuetify/plugin.js (mode: 'all')
+import nuxt_plugin_axios_80c87b74 from 'nuxt_plugin_axios_80c87b74' // Source: ./axios.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -111,7 +116,53 @@ async function createApp (ssrContext) {
     ssrContext
   })
 
+  const inject = function (key, value) {
+    if (!key) {
+      throw new Error('inject(key, value) has no key provided')
+    }
+    if (value === undefined) {
+      throw new Error('inject(key, value) has no value provided')
+    }
+
+    key = '$' + key
+    // Add into app
+    app[key] = value
+
+    // Check if plugin not already installed
+    const installKey = '__nuxt_' + key + '_installed__'
+    if (Vue[installKey]) {
+      return
+    }
+    Vue[installKey] = true
+    // Call Vue.use() to install the plugin into vm
+    Vue.use(() => {
+      if (!Vue.prototype.hasOwnProperty(key)) {
+        Object.defineProperty(Vue.prototype, key, {
+          get () {
+            return this.$root.$options[key]
+          }
+        })
+      }
+    })
+  }
+
   // Plugin execution
+
+  if (process.client && typeof nuxt_plugin_workbox_6cf6843c === 'function') {
+    await nuxt_plugin_workbox_6cf6843c(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_nuxticons_76c83a7c === 'function') {
+    await nuxt_plugin_nuxticons_76c83a7c(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_plugin_55867a84 === 'function') {
+    await nuxt_plugin_plugin_55867a84(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_axios_80c87b74 === 'function') {
+    await nuxt_plugin_axios_80c87b74(app.context, inject)
+  }
 
   // If server-side, wait for async component to be resolved first
   if (process.server && ssrContext && ssrContext.url) {
