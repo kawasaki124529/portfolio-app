@@ -14,6 +14,4 @@ RUN apk update && \
     yarn install &&\
     rm -rf /var/cache/apk/*
 
-EXPOSE 8080
-
 CMD ["yarn", "dev"]
