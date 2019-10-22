@@ -1,0 +1,8 @@
+User.all
+show-models
+users
+.table
+command
+show-models
+User.all
+exit
