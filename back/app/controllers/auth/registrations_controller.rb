@@ -1,5 +1,6 @@
-class Auth::RegistrationsController < ApplicationController
-  private
+module Auth
+  class RegistrationsController < DeviseTokenAuth::RegistrationsController
+    private
     def sign_up_params
       params.permit(:name, :email, :password, :password_confirmation)
     end
@@ -7,3 +8,4 @@ class Auth::RegistrationsController < ApplicationController
       params.permit(:name, :email)
     end
   end
+ end
