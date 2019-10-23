@@ -1,6 +1,7 @@
 module Auth
-  class RegistrationsController < DeviseTokenAuth::RegistrationsController
+  class RegistrationsController < DeviseTokenAuth::RegistrationsControlle
     private
+    # ストロングパラメーター設定
     def sign_up_params
       params.permit(:name, :email, :password, :password_confirmation)
     end

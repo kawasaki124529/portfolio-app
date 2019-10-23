@@ -6,3 +6,8 @@ command
 show-models
 User.all
 exit
+User.all
+w
+exit
+User.all
+exit
