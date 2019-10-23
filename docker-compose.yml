@@ -17,8 +17,6 @@ services:
       - backend-bundle:/usr/local/bundle
     depends_on:
       - db
-    ports:
-      - ${BACKEND_PORT}:3000
     tty: true
 
   front:
