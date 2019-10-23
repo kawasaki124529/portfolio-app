@@ -29,7 +29,6 @@
                     prepend-icon=""
                     type="text"
                   ></v-text-field>
-
                   <v-text-field
                     id="password"
                     label="Password"
@@ -56,8 +55,8 @@
     // props: {
     //   source: String,
     // },
-    data: () => ({
-      drawer: null,
-    }),
+    // data: () => ({
+    //   drawer: null,
+    // }),
   }
 </script>
