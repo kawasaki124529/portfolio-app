@@ -133,7 +133,7 @@ export async function setContext (app, context) {
       payload: context.payload,
       error: context.error,
       base: '/',
-      env: {}
+      env: {"_AXIOS_BASE_URL_":"http://localhost:8000"}
     }
     // Only set once
     if (context.req) {

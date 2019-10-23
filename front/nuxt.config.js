@@ -52,8 +52,12 @@ export default {
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {
-  },
+  // axios: {
+  //   proxy: true //CORSエラー回避
+  // },
+  // proxy: {
+  //   '/api/': { target: 'http://back:3000', pathRewrite: { '^api': '/'}}
+  // },
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module

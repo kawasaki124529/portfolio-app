@@ -28,6 +28,7 @@
                     name="email"
                     prepend-icon=""
                     type="text"
+                    v-model="email"
                   ></v-text-field>
                   <v-text-field
                     id="password"
@@ -35,12 +36,21 @@
                     name="password"
                     prepend-icon=""
                     type="password"
+                    v-model="password"
+                  ></v-text-field>
+                  <v-text-field
+                    id="password_confirmation"
+                    label="Password(確認用)"
+                    name="password_confimation"
+                    prepend-icon=""
+                    type="password"
+                    v-model="password_confirmation"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary">SIGNUP</v-btn>
+                <v-btn color="primary" @click="register">SIGNUP</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -51,12 +61,30 @@
 </template>
 
 <script>
+  import axios from '../plugins/axios';
+
   export default {
-    // props: {
-    //   source: String,
-    // },
-    // data: () => ({
-    //   drawer: null,
-    // }),
+    data() {
+      return {
+        email: '',
+        password: '',
+        password_confirmation: '',
+      };
+    },
+    methods: {
+      register() {
+        axios
+          .post(
+            '/auth',
+            {
+              email: this.email,
+              password: this.password,
+              password_confirmation: this.password_confirmation
+            }
+          ).then(response => {
+            console.log(response)
+          });
+      }
+    }
   }
 </script>
