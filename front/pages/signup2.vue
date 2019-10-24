@@ -61,8 +61,6 @@
 </template>
 
 <script>
-  import axios from '../plugins/axios';
-
   export default {
     data() {
       return {
@@ -73,7 +71,7 @@
     },
     methods: {
       register() {
-        axios
+        this.$axios
           .post(
             '/auth',
             {

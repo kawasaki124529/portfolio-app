@@ -1,8 +1,7 @@
-import axios from 'axios';
+// export default function({ $axios, redirect }) {
+//   $axios.setToken('access_token')
 
-const instance = axios.create({
-  baseURL:
-  'http://localhost:8000'
-});
-
-export default instance;
+//   $axios.onResponse(config => {
+//       $axios.setHeader('Access-Control-Allow-Origin', 'http://back:3000')
+//   })
+// }
