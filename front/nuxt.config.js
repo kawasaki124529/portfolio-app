@@ -32,7 +32,6 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    'plugins/axios'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -56,8 +55,8 @@ export default {
   axios: {
     baseURL: 'http://localhost:8000/api/',
   },
-  proxy: {
-  },
+  // proxy: {
+  // },
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
