@@ -54,7 +54,6 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    // proxy: true //CORSエラー回避
     baseURL: 'http://localhost:8000/api/',
   },
   proxy: {

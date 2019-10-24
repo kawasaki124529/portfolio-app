@@ -7,7 +7,9 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
+    # アクセスを許可するURL
     origins '*'
+    # アクセスを許可するメソッド
     resource '*',
       :headers => :any,
       :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
