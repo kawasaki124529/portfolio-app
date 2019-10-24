@@ -42,7 +42,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click="register">SIGNUP</v-btn>
+                <v-btn color="primary" @click="register">Log_in</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -58,22 +58,22 @@
       return {
         email: '',
         password: '',
-        password_confirmation: '',
       };
     },
     methods: {
       register() {
         this.$axios
           .post(
-            '/auth',
+            '/auth/sign_in',
             {
               email: this.email,
               password: this.password,
-              password_confirmation: this.password_confirmation
             }
           ).then(response => {
             console.log(response)
           });
+        this.email = "";
+        this.password = "";
       }
     }
   }
