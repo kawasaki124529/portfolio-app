@@ -33,6 +33,7 @@
       app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      
       <!-- <v-btn
         icon
         @click.stop="miniVariant = !miniVariant"
@@ -55,6 +56,20 @@
       <!-- ヘッダータイトル -->
       <v-toolbar-title v-text="title" />
       <v-spacer />
+      <v-btn 
+        text large
+        nuxt
+        to="/signin"
+      >
+        LOGIN
+      </v-btn>
+      <v-btn 
+        text large
+        nuxt
+        to="/signup"
+      >
+        SIGNUP
+      </v-btn>
       <v-btn
         icon
         @click.stop="rightDrawer = !rightDrawer"
