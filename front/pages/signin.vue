@@ -42,7 +42,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click="register">Log_in</v-btn>
+                <v-btn color="primary" @click="login">Log_in</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -61,17 +61,11 @@
       };
     },
     methods: {
-      register() {
-        this.$axios
-          .post(
-            '/auth/sign_in',
-            {
-              email: this.email,
-              password: this.password,
-            }
-          ).then(response => {
-            console.log(response)
-          });
+      login() {
+        this.$store.dispatch('auth/login', {
+          email: this.email,
+          password: this.password
+        });
         this.email = "";
         this.password = "";
       }
