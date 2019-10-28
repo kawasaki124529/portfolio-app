@@ -24,5 +24,6 @@
 
 /.env
 
-.local/
+.local/*
+
 bin/
