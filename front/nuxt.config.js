@@ -17,6 +17,10 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    // google maps apiのソースファイル
+    script: [
+      { src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAoKtlpsxU9X_HYywM7dysT4w2dSoAalyw'}
     ]
   },
   /*
@@ -32,6 +36,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/axios.js'}
   ],
   /*
   ** Nuxt.js dev-modules
@@ -46,17 +51,20 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/proxy'
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {
-    baseURL: 'http://localhost:8000/api/',
+  axios: { 
   },
-  // proxy: {
-  // },
+  proxy: {
+    '/api': { target: 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/',
+              pathRewrite: { '^/api' : '/'}
+            },
+  },
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
