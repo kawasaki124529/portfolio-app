@@ -29,7 +29,7 @@ export const actions = {
   login({ commit }, authData) {
     this.$axios
           .post(
-            '/auth/sign_in',
+            'http://localhost:8000/api/auth/sign_in',
             {
               email: authData.email,
               password: authData.password,
