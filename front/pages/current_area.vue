@@ -1,15 +1,41 @@
 <template>
-  <div>
-    <button @click="getLocation">
-      現在地付近の店を探す
-    </button>
-    <button @click="getShops">
-      hotpepper
-    </button>
-    <button @click="fetchSomething">
-      fetch
-    </button>
-  </div>
+    <!-- <p>現在地：{{address}}</p> -->
+    <!-- <p>lat：{{ latitude }}</p>
+    <p>lng：{{ longitude }}</p>
+    <br>
+    <p>店：{{ shop }}</p>
+    <hr> -->
+  <v-layout>
+    <v-flex xs12 sm6 offset-sm3>
+      <v-btn round color="primary" dark @click="getLocation">現在地付近の店を探す</v-btn>
+      <v-card>
+        <v-img
+          class="white--text"
+          height="200px"
+          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+        >
+          <v-container fill-height fluid>
+            <v-layout fill-height>
+              <v-flex xs12 align-end flexbox>
+                <span class="headline">Top 10 Australian beaches</span>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-img>
+        <v-card-title>
+          <div>
+            <span class="grey--text">Number 10</span><br>
+            <span>Whitehaven Beach</span><br>
+            <span>Whitsunday Island, Whitsunday Islands</span>
+          </div>
+        </v-card-title>
+        <v-card-actions>
+          <v-btn flat color="orange">Share</v-btn>
+          <v-btn flat color="orange">Explore</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -18,7 +44,8 @@
       return {
         latitude: 0,
         longitude: 0,
-        adress: ""
+        address: "",
+        shop: ""
       }
     },
     methods: {
@@ -34,7 +61,6 @@
             timeout: 5000,
             maximumAge: 0
           }
-
           navigator.geolocation.getCurrentPosition(this.success, this.error, options)
         }
       },
@@ -44,6 +70,7 @@
         this.longitude = position.coords.longitude
         console.log(this.latitude);
         console.log(this.longitude);
+        this.getShops();
         this.initMap();
         },
       // 位置情報取得：失敗時の処理
@@ -63,23 +90,24 @@
             break
         }
       },
+      // Google map APIで住所を取得（geoLocation後に作動）
       initMap() {
-        // Google map APIで住所を取得（緯度経度取得後に作動）
         var geocoder = new google.maps.Geocoder();
         var latlng = {lat: this.latitude, lng: this.longitude};
         geocoder.geocode({'location': latlng}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          this.adress = results[0].formatted_address;
-          console.log(this.adress);
+        if (status === google.maps.GeocoderStatus.OK) {
+          console.log(results);
+          this.address = results[0].formatted_address;
+          console.log(this.address);
         }
         else {
         alert("エラー" + status);
-        }
+        };
         });
       },
+      // ホットペッパーAPIから周辺のデータを取得
       getShops() {
-        this.$axios.get(
-          '/api',
+        this.$axios.$get("/api",
           {
             params: {
               'key': '2d1fe3e2b56db033',
@@ -92,28 +120,11 @@
             headers: {
               'Access-Control-Allow-Origin': '*'
             }
-          }
-        )
-        .then(response => {
-          console.log(response)
-        })
-      },
-      async fetchSomething() {
-        const ip = await this.$axios.$get("/api",
-          {
-            params: {
-              'key': '2d1fe3e2b56db033',
-              'lat': '34.67',
-              'lng': '135.52',
-              'range': '5',
-              'order': '4',
-              'format': 'json'
-            },
-            headers: {
-              'Access-Control-Allow-Origin': '*'
-            }
-          });
-        console.log(ip);
+          })
+        .then(res => {
+          console.log(res)
+          this.shop = res.results.shop
+        });
       }
     }
   }
