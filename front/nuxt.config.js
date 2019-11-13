@@ -36,7 +36,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/axios.js'}
+    { src: '~/plugins/axios.js'},
+    'plugins/vuetify'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -70,7 +71,6 @@ export default {
   ** https://github.com/nuxt-community/vuetify-module
   */
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
     theme: {
       dark: false,
       themes: {
@@ -93,6 +93,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
+    transpile: ['vuetify/lib'],
     extend (config, ctx) {
     }
   }

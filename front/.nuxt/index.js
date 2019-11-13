@@ -17,6 +17,7 @@ import nuxt_plugin_nuxticons_76c83a7c from 'nuxt_plugin_nuxticons_76c83a7c' // S
 import nuxt_plugin_plugin_55867a84 from 'nuxt_plugin_plugin_55867a84' // Source: ./vuetify/plugin.js (mode: 'all')
 import nuxt_plugin_axios_80c87b74 from 'nuxt_plugin_axios_80c87b74' // Source: ./axios.js (mode: 'all')
 import nuxt_plugin_axios_5659d192 from 'nuxt_plugin_axios_5659d192' // Source: ../plugins/axios.js (mode: 'all')
+import nuxt_plugin_vuetify_53254669 from 'nuxt_plugin_vuetify_53254669' // Source: ../plugins/vuetify (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -191,6 +192,10 @@ async function createApp (ssrContext) {
 
   if (typeof nuxt_plugin_axios_5659d192 === 'function') {
     await nuxt_plugin_axios_5659d192(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_vuetify_53254669 === 'function') {
+    await nuxt_plugin_vuetify_53254669(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first
