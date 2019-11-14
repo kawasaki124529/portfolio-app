@@ -7,31 +7,33 @@
     <hr> -->
   <v-layout>
     <v-flex xs12 sm6 offset-sm3>
-      <v-btn round color="primary" dark @click="getLocation">現在地付近の店を探す</v-btn>
-      <v-card>
+      <v-btn rounded color="primary" dark @click="getLocation">現在地付近の店を探す</v-btn>
+      <br>
+      <br>
+      <v-card v-for="shop in shops" :key="shop.id">
         <v-img
           class="white--text"
           height="200px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+          :src = shop.photo.pc.l
         >
           <v-container fill-height fluid>
             <v-layout fill-height>
               <v-flex xs12 align-end flexbox>
-                <span class="headline">Top 10 Australian beaches</span>
+                <span class="headline">{{ shop.catch }}</span>
               </v-flex>
             </v-layout>
           </v-container>
         </v-img>
         <v-card-title>
           <div>
-            <span class="grey--text">Number 10</span><br>
-            <span>Whitehaven Beach</span><br>
-            <span>Whitsunday Island, Whitsunday Islands</span>
+            <span class="grey--text">{{ shop.name }}</span><br>
+            <span>・{{ shop.mobile_access }}</span><br>
+            <span>・{{ shop.open }}</span>
           </div>
         </v-card-title>
         <v-card-actions>
-          <v-btn flat color="orange">Share</v-btn>
-          <v-btn flat color="orange">Explore</v-btn>
+          <v-btn text color="orange" :href= shop.urls.pc >URL</v-btn>
+          <v-btn text color="orange">Explore</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -45,7 +47,7 @@
         latitude: 0,
         longitude: 0,
         address: "",
-        shop: ""
+        shops: ""
       }
     },
     methods: {
@@ -111,8 +113,9 @@
           {
             params: {
               'key': '2d1fe3e2b56db033',
-              'lat': '34.67',
-              'lng': '135.52',
+              'lat': this.latitude,
+              'lng': this.longitude,
+              'keyword': 'うどん',
               'range': '5',
               'order': '4',
               'format': 'json'
@@ -122,8 +125,8 @@
             }
           })
         .then(res => {
-          console.log(res)
-          this.shop = res.results.shop
+          console.log(res.results.shop)
+          this.shops = res.results.shop
         });
       }
     }
