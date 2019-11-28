@@ -1,14 +1,73 @@
 <template>
   <v-app >
-    <!-- 左のナビゲーションバー -->
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
+    <!-- ヘッダーbar -->
+    <v-app-bar
       fixed
       app
+      style="background-color:rgba(5,5,5,0.7);"
+    >      
+      <!-- ヘッダータイトル -->
+      <v-toolbar-title 
+        class="white--text" 
+        nuxt to="/" 
+        v-text="title" 
+        style="font-family:Sawarabi Gothic"
+      />
+      <v-btn
+        class="white--text"
+        text large
+        nuxt
+        to="/current_area"
+      >
+        <v-icon>fas fa-search-location fa-xs</v-icon>
+        現在地周辺のお店を探す
+      </v-btn>
+      <v-btn 
+        class="white--text"
+        text large
+        nuxt
+        to="/topics"
+      >
+        TOPIC
+      </v-btn>
+      <v-spacer/>
+      <LoginBtn v-show="!isLoggedIn"></LoginBtn>
+      <SignupBtn/>
+      <v-btn 
+        class="white--text"
+        text large
+        @click="logout"
+        v-show="isLoggedIn"
+      >
+        LOGOUT
+      </v-btn>
+      <v-btn
+        class="white--text"
+        color="blue-grey"
+        v-if="isLoggedIn"
+        @click.stop="rightDrawer = !rightDrawer"
+      >
+      {{ user.user.name }}
+        <v-icon right >mdi-menu</v-icon>
+      </v-btn>
+    </v-app-bar>
+    <!-- pagesの挿入 -->
+    <v-content>
+      <!-- auth処理時のアラートバー -->
+      <SuccessLogin/>
+      <FailedLogin/>
+      <SuccessLogout/>
+      <v-container>
+        <nuxt />
+      </v-container>
+    </v-content>
+    <!-- 右のナビゲーション内部 -->
+    <v-navigation-drawer
+      v-model="rightDrawer"
+      right
+      temporary
+      fixed
     >
-      <!-- 左navのリスト --> 
       <v-list>
         <v-list-item
           v-for="(item, i) in items"
@@ -26,81 +85,6 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <!-- ヘッダーbar -->
-    <v-app-bar
-      :clipped-left="clipped"
-      fixed
-      app
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      
-      <!-- <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn> -->
-      <!--<v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn> -->
-      <!--<v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn> -->
-      
-      <!-- ヘッダータイトル -->
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn 
-        text large
-        nuxt
-        to="/signin"
-      >
-        LOGIN
-      </v-btn>
-      <v-btn 
-        text large
-        nuxt
-        to="/signup"
-      >
-        SIGNUP
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
-    </v-app-bar>
-    <!-- pagesの挿入 -->
-    <v-content>
-      <v-container>
-        <nuxt />
-      </v-container>
-    </v-content>
-    <!-- 右のナビゲーション内部 -->
-    <v-navigation-drawer
-      v-model="rightDrawer"
-      :right="right"
-      temporary
-      fixed
-    >
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
     <!-- フッター -->
     <v-footer
       :fixed="fixed"
@@ -112,11 +96,15 @@
 </template>
 
 <script>
+import LoginBtn from "../components/LoginBtn.vue"
+import SignupBtn from "../components/SignupBtn.vue"
+import SuccessLogin from "../components/SuccessLogin.vue"
+import FailedLogin from "../components/FailedLogin.vue"
+import SuccessLogout from "../components/SuccessLogout.vue"
+
 export default {
   data () {
     return {
-      clipped: false,
-      drawer: false,
       fixed: false,
       items: [
         {
@@ -130,11 +118,29 @@ export default {
           to: '/inspire'
         }
       ],
-      miniVariant: false,
-      right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: '俺達のハンバーガー！',
     }
+  },
+  methods: {
+    logout(){
+      this.$store.dispatch('auth/logout');
+    }
+  },
+  computed: {
+    isLoggedIn(){
+      return this.$store.state.auth.isLoggedIn;
+    },
+    user(){
+      return this.$store.state.auth.User
+    }
+  },
+  components:{
+    LoginBtn,
+    SignupBtn,
+    SuccessLogin,
+    FailedLogin,
+    SuccessLogout
   }
 }
 </script>
