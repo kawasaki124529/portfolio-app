@@ -1,11 +1,12 @@
 <template>
   <v-layout row justify-center>
+    <!-- モーダル部分 -->
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on }">
         <v-btn
           color="cyan accent-2"
           dark
-          absolute
+          fixed
           bottom
           right
           fab
@@ -14,119 +15,148 @@
           <v-icon>fas fa-plus</v-icon>
         </v-btn>
       </template>
+      <!-- フォーム部分 -->
       <v-card>
-        <v-card-title>
-          <span class="headline">感想を投稿する</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container grid-list-md>
-            <v-layout wrap>
-              <v-flex xs12>
-                <v-text-field label="店舗名*" v-model="name" required></v-text-field>
-              </v-flex>
-              <!-- カレンダー欄 -->
-                <v-layout row wrap>
-                  <v-flex xs12 >
-                    <v-menu
-                      ref="menu"
-                      v-model="menu"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      :return-value.sync="date"
-                      transition="scale-transition"
-                      offset-y
-                      min-width="290px"
-                    >
-                      <template v-slot:activator="{ on }">
-                        <v-text-field
-                          v-model="date"
-                          label="訪問日*"
-                          prepend-icon="far fa-calendar-alt"
-                          readonly
-                          v-on="on"
-                          required
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker v-model="date" no-title scrollable>
-                        <v-spacer></v-spacer>
-                        <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                        <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                      </v-date-picker>
-                    </v-menu>
-                  </v-flex>
-                  <v-spacer></v-spacer>
-                </v-layout>
-              <!-- メニュー欄 -->
-              <v-flex xs12 >
-                <v-text-field label="注文したメニュー*" 
-                              hint="複数可、書き込み方自由" 
+        <validation-observer v-slot="{ handleSubmit }">
+          <v-card-title>
+            <span class="headline">感想を投稿する</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container grid-list-md>
+              <v-layout wrap>
+                <!-- 店舗名欄 -->
+                <v-flex xs12>
+                  <ValidationProvider name="店舗名" rules="required" v-slot="{ errors }">
+                    <v-text-field 
+                      label="店舗名*" 
+                      v-model="shopName" 
+                      :error-messages="errors[0]" 
+                      required
+                    ></v-text-field>
+                  </ValidationProvider>
+                </v-flex>
+                <!-- カレンダー欄 -->
+                  <v-layout row wrap>
+                    <v-flex xs12 >
+                      <v-menu
+                        ref="menu"
+                        v-model="menu"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        :return-value.sync="date"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="290px"
+                      >
+                        <template v-slot:activator="{ on }">
+                          <ValidationProvider name="訪問日" rules="required" v-slot="{ errors }">
+                            <v-text-field
+                              v-model="date"
+                              label="訪問日*"
+                              prepend-icon="far fa-calendar-alt"
+                              readonly
+                              v-on="on"
                               required
-                              v-model="meals"
-                ></v-text-field>
-              </v-flex>
-              <!-- 予算欄 -->
-              <v-flex xs12>
-                <v-select
-                  :items="['￥0-1000', '￥1000-1500', '￥1500-3000', '￥3000+']"
-                  label="一人当たり予算*"
-                  v-model="price"
-                  required
-                ></v-select>
-              </v-flex>
-              <!-- 感想欄 -->
-              <v-flex xs12>
-                <v-textarea
-                  label="感想*"
-                  v-model="review"
-                  persistent-hint
-                  required
-                ></v-textarea>
-              </v-flex>
-              <!-- レーティング欄 -->
-              <v-flex xs12>
-                <v-card-actions class="pa-3">
-                  オススメ度*
-                  <v-spacer></v-spacer>
-                  <span class="black--text text--lighten-2 caption mr-2">
-                    ({{ rating }})
-                  </span>
-                  <v-rating
-                    v-model="rating"
-                    background-color="gray"
-                    color="yellow accent-4"
-                    dense
-                    hover
-                    size="22"
-                  ></v-rating>
-                </v-card-actions>
-                <hr>
-              </v-flex>
-              <!-- 画像選択欄 -->
-              <v-flex xs12 >
-                <v-text-field
-                  label="画像アップロード*"
-                  @click="pickFile"
-                  v-model="imageName"
-                  prepend-icon="far fa-file"
-                ></v-text-field>
-                <input
-                  type="file"
-                  style="display: none"
-                  ref="image"
-                  accept="image/*"
-                  @change="onFilePicked"
-                />
-              </v-flex>
-            </v-layout>
-          </v-container>
-          <!-- 記載事項 -->
-          <small>*必須</small>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false">閉じる</v-btn>
-          <v-btn color="blue darken-1" text @click="upload">投稿</v-btn>
-        </v-card-actions>
+                              :error-messages="errors[0]"
+                            ></v-text-field>
+                          </ValidationProvider>
+                        </template>
+                        <v-date-picker v-model="date" no-title scrollable>
+                          <v-spacer></v-spacer>
+                          <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
+                          <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+                        </v-date-picker>
+                      </v-menu>
+                    </v-flex>
+                    <v-spacer></v-spacer>
+                  </v-layout>
+                <!-- メニュー欄 -->
+                <v-flex xs12 >
+                  <ValidationProvider name="注文したメニュー" rules="required" v-slot="{ errors }">
+                    <v-text-field label="注文したメニュー*" 
+                                  hint="複数可、書き込み方自由" 
+                                  :error-messages="errors[0]"
+                                  required
+                                  v-model="meals"
+                    ></v-text-field>
+                  </ValidationProvider>
+                </v-flex>
+                <!-- 予算欄 -->
+                <v-flex xs12>
+                  <ValidationProvider name="一人当たり予算" rules="required" v-slot="{ errors }">
+                    <v-select
+                      :items="['￥0-1000', '￥1000-1500', '￥1500-3000', '￥3000+']"
+                      label="一人当たり予算*"
+                      v-model="price"
+                      :error-messages="errors[0]"
+                      required
+                    ></v-select>
+                  </ValidationProvider>
+                </v-flex>
+                <!-- 感想欄 -->
+                <v-flex xs12>
+                  <ValidationProvider name="感想" rules="required" v-slot="{ errors }">
+                    <v-textarea
+                      label="感想*"
+                      v-model="review"
+                      persistent-hint
+                      :error-messages="errors[0]"
+                      required
+                    ></v-textarea>
+                  </ValidationProvider>
+                </v-flex>
+                <!-- レーティング欄 -->
+                <v-flex xs12>
+                  <v-card-actions class="pa-3">
+                    オススメ度*
+                    <v-spacer></v-spacer>
+                    <span class="black--text text--lighten-2 caption mr-2">
+                      ({{ rating }})
+                    </span>
+                    <ValidationProvider name="レーティング" rules="required" v-slot="{ errors }">
+                      <v-rating
+                        v-model="rating"
+                        background-color="gray"
+                        color="yellow accent-4"
+                        dense
+                        hover
+                        size="22"
+                        :error-messages="errors[0]"
+                      ></v-rating>
+                    </ValidationProvider>
+                  </v-card-actions>
+                  <hr>
+                </v-flex>
+                <!-- 画像選択欄 -->
+                <v-flex xs12 >
+                  <ValidationProvider name="画像" rules="required" v-slot="{ errors }">
+                    <v-text-field
+                      label="画像アップロード*"
+                      @click="pickFile"
+                      v-model="imageName"
+                      prepend-icon="far fa-file"
+                      :error-messages="errors[0]"
+                    ></v-text-field>
+                    <input
+                      type="file"
+                      style="display: none"
+                      ref="image"
+                      accept="image/*"
+                      @change="onFilePicked"
+                    />
+                  </ValidationProvider>
+                </v-flex>
+              </v-layout>
+            </v-container>
+            <!-- 記載事項 -->
+            <small>*全項目必須</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="dialog = false">閉じる</v-btn>
+            <v-btn color="blue darken-1" text @click.prevent="handleSubmit(upload)">投稿</v-btn>
+          </v-card-actions>
+        </validation-observer>
       </v-card>
     </v-dialog>
   </v-layout>
@@ -136,7 +166,7 @@
 export default {
   data () {
     return {
-      name: "",
+      shopName: "",
       date: new Date().toISOString().substr(0, 10),
       menu: false,
       modal: false,
@@ -151,7 +181,13 @@ export default {
       dialog: false,
     }
   },
+  computed: {
+    user_id(){
+      return this.$store.state.auth.User.user.id
+    }
+  },
   methods: {
+    // 選択された画像ファイルの処理
     pickFile() {
       this.$refs.image.click();
     },
@@ -166,7 +202,7 @@ export default {
         fr.readAsDataURL(files[0]);
         fr.addEventListener("load", () => {
           this.imageUrl = fr.result;
-          this.imageFile = files[0]; // this is an image file that can be sent to server...
+          this.imageFile = files[0]; // APIサーバーへ送るファイル
         });
       } else {
         this.imageName = "";
@@ -177,25 +213,23 @@ export default {
     // サーバーへアップロード処理
     upload() {
       let formData = new FormData
-      formData.append('name', this.name)
+      formData.append('user_id', this.user_id)
+      formData.append('shop_name', this.shopName)
       formData.append('date', this.date)
       formData.append('meals', this.meals)
       formData.append('price', this.price)
       formData.append('review', this.review)
       formData.append('rating', this.rating)
-      formData.append('image_file', this.imageFile)
-      for( let i = 0; i < this.images.length; i++) {
-        let image = this.images[i];
-        formData.append('images[]', image);
-      }
-      this.$axios.$post('http://localhost:4000/api/v1/products',
+      formData.append('image', this.imageFile)
+
+      this.$axios.post('http://localhost:8000/api/topics',
       formData,
       {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }).then(response => {
-        console.log(reponse.data.status);
+        console.log(response);
       }).catch(error => {
         console.log(error);
       })
