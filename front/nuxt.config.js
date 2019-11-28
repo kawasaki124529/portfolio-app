@@ -32,12 +32,16 @@ export default {
   ** Global CSS
   */
   css: [
+    '~/assets/css/main.css'
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
     { src: '~/plugins/axios.js'},
+    { src: '~/plugins/storeStorage.js', ssr: false },
+    { src: '~/plugins/cookieStorage.js' },
+    { src: '~/plugins/vee-validate.js'}
   ],
   /*
   ** Nuxt.js dev-modules
@@ -53,8 +57,14 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/dotenv',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
+    'nuxt-webfontloader'
   ],
+  webfontloader: {
+    google: {
+      families: ['Sawarabi Gothic']
+    }
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
@@ -93,7 +103,10 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    transpile: ['vuetify/lib'],
+    transpile: [
+      'vuetify/lib',
+      "vee-validate/dist/rules"
+    ],
     extend (config, ctx) {
     }
   }
