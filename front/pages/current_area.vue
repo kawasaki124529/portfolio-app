@@ -1,41 +1,58 @@
 <template>
-    <!-- <p>現在地：{{address}}</p> -->
-    <!-- <p>lat：{{ latitude }}</p>
-    <p>lng：{{ longitude }}</p>
-    <br>
-    <p>店：{{ shop }}</p>
-    <hr> -->
   <v-layout>
     <v-flex xs12 sm6 offset-sm3>
-      <v-btn rounded color="primary" dark @click="getLocation">現在地付近の店を探す</v-btn>
+      <div class="text-center">
+        <v-select
+          :items="['ハンバーガー', '居酒屋', 'ダイニングバー', '創作料理','和食','洋食','イタリアン・フレンチ','中華','焼肉・ホルモン','韓国料理','アジア・エスニック料理','各国料理','カラオケ・パーティ','バー・カクテル','ラーメン','お好み焼き','カフェ・スイーツ','その他グルメ',]"
+          label="ジャンルから選ぶ"
+          v-model="keyword"
+        ></v-select>
+        <v-btn rounded color="primary" dark @click="getLocation">現在地付近の店を探す</v-btn>
+        <p>半径３km圏内　おすすめ順</p>
+        <!-- 検索結果：現在地情報 -->
+        <v-content v-show="latitude !== 0">
+          <h4>現在地</h4>
+          <p>緯度：{{ latitude }}, 経度：{{ longitude }}</p>
+          <p id="current_address"></p>
+          <br>
+          <p>検索結果：{{ length }}件</p>
+        </v-content>
+        <!-- 検索結果０件の場合 -->
+          <v-alert type="warning" v-show="alert" transition="fade-transition">近くに該当する店が見つかりませんでした</v-alert>        
+      </div>
       <br>
-      <br>
-      <v-card v-for="shop in shops" :key="shop.id">
-        <v-img
-          class="white--text"
-          height="200px"
-          :src = shop.photo.pc.l
-        >
-          <v-container fill-height fluid>
-            <v-layout fill-height>
-              <v-flex xs12 align-end flexbox>
-                <span class="headline">{{ shop.catch }}</span>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-img>
-        <v-card-title>
-          <div>
-            <span class="grey--text">{{ shop.name }}</span><br>
-            <span>・{{ shop.mobile_access }}</span><br>
-            <span>・{{ shop.open }}</span>
-          </div>
-        </v-card-title>
-        <v-card-actions>
-          <v-btn text color="orange" :href= shop.urls.pc >URL</v-btn>
-          <v-btn text color="orange">Explore</v-btn>
-        </v-card-actions>
-      </v-card>
+      <!-- 検索結果：店舗情報 -->
+      <v-content v-for="shop in shops" :key="shop.id">
+        <v-card class="grey lighten-3 ma-2">
+          <v-img
+            class="white--text"
+            width="100%"
+            :src = shop.photo.pc.l
+          >
+            <v-container fill-height fluid>
+              <v-layout fill-height>
+                <v-flex xs12 align-end flexbox>
+                  <span class="headline" style="background-color:rgba(21,21,75,0.2);">{{ shop.catch }}</span>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-img>
+          <v-card-title>
+            <div>
+              <span class="brown--text">{{ shop.name }}</span><br>
+              <span class="grey--text">・平均予算：</span><br>
+              <span>  {{ shop.budget.average }}</span><br>
+              <span class="grey--text">・アクセス：</span><br>
+              <span>{{ shop.mobile_access }}</span><br>
+              <span class="grey--text">・営業時間：</span><br>
+              <span>{{ shop.open }}</span>
+            </div>
+          </v-card-title>
+          <v-card-actions>
+            <v-btn text color="orange" :href= shop.urls.pc target="newtab">URL(HotPepper)</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-content>
     </v-flex>
   </v-layout>
 </template>
@@ -46,8 +63,10 @@
       return {
         latitude: 0,
         longitude: 0,
-        address: "",
-        shops: ""
+        shops: "",
+        keyword: "ハンバーガー",
+        alert: false,
+        length: "",
       }
     },
     methods: {
@@ -74,7 +93,9 @@
         console.log(this.longitude);
         this.getShops();
         this.initMap();
-        },
+        if (this.alert === true){
+            this.alert = false
+        }},
       // 位置情報取得：失敗時の処理
       error (error) {
         switch (error.code) {
@@ -99,8 +120,8 @@
         geocoder.geocode({'location': latlng}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           console.log(results);
-          this.address = results[0].formatted_address;
-          console.log(this.address);
+          var elm = document.getElementById('current_address');
+          elm.textContent = results[1].formatted_address;
         }
         else {
         alert("エラー" + status);
@@ -115,7 +136,7 @@
               'key': '2d1fe3e2b56db033',
               'lat': this.latitude,
               'lng': this.longitude,
-              'keyword': 'うどん',
+              'keyword': this.keyword,
               'range': '5',
               'order': '4',
               'format': 'json'
@@ -127,6 +148,10 @@
         .then(res => {
           console.log(res.results.shop)
           this.shops = res.results.shop
+          this.length = res.results.shop.length
+          if (res.results.shop.length === 0){
+            this.alert = true
+          }
         });
       }
     }
