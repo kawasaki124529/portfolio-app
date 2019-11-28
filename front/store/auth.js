@@ -1,9 +1,11 @@
 export const state = () => {
   return {
-    Tokens : {}, // accessToken, uid, expiry wo kakunou
-    // accessToken: null, 
-    // uid: null,
-    // expiry: null,
+    Tokens : {}, 
+    User: "",
+    isLoggedIn: false,
+    successLogin: false,
+    failedLogin: false,
+    successLogout: false,
   }
 }
 
@@ -11,22 +13,29 @@ export const mutations = {
   updateTokens(state, Tokens){
     state.Tokens = Tokens;
   },
-  updateAccessToken(state, accessToken){
-    state.accessToken = accessToken;
-    console.log(state.accessToken)
+  updateUser(state, user){
+    state.User = user;
   },
-  updateUid(state, uid){
-    state.uid = uid;
-    console.log(state.uid)
+  updateIsLoggedIn(state, boolean){
+    state.isLoggedIn = boolean;
+    state.successLogin = boolean;
   },
-  updateAccessToken(state, expiry){
-    state.accessToken = expiry;
-    console.log(state.expiry)
+  removeAlert(state, payload){
+    state.successLogin = payload;
+    state.failedLogin = payload;
+    state.successLogout = payload;
+  },
+  failedLogin(state, payload){
+    state.failedLogin = payload;
+  },
+  successLogout(state, payload){
+    state.successLogout = payload;
   },
 }
 
 export const actions = {
-  login({ commit }, authData) {
+  // ログイン処理
+  login({ commit, router }, authData) {
     this.$axios
           .post(
             'http://localhost:8000/api/auth/sign_in',
@@ -36,13 +45,43 @@ export const actions = {
             }
           )
           .then(response => {
-            commit('updateTokens', {
-              accessToken: response.headers['access-token'],
-              expiry: response.headers.expiry,
-              uid: response.headers.uid
-            });
-            // commit('updateUid', response.headers.uid)
-            console.log(response)
-          });
-  } 
+            console.log(response);
+            if (response.statusText === "OK"){
+              commit('updateTokens', {
+                accessToken: response.headers['access-token'],
+                expiry: response.headers.expiry,
+                uid: response.headers.uid,
+              });
+              commit('updateUser', {
+                user: response.data.data
+              });
+              commit('updateIsLoggedIn', true);
+              this.$router.push('/');
+              setTimeout(function(){
+                commit('removeAlert', false);
+              },4000);
+            }
+          })
+          // ログイン失敗の際の処理
+          .catch(error => {
+            console.log(error);
+            commit('failedLogin', true);
+            setTimeout(function(){
+              commit('removeAlert', false);
+            },4000);
+        })
+  },
+  // ログアウト処理
+  logout({ commit }) {
+    commit('updateTokens', null);
+    commit('updateUser', null);
+    commit('updateIsLoggedIn', false);
+    commit('successLogout', true);
+    setTimeout(function(){
+      commit('removeAlert', false);
+    },4000);
+    this.$router.push('/');
+  }
 }
+
+export const strict = false;
