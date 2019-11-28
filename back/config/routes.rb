@@ -4,6 +4,6 @@ Rails.application.routes.draw do
     mount_devise_token_auth_for 'User', at: 'auth', controllers: {
       registrations: 'api/auth/registrations'
     }
-    resources :topics, only: %i(new create)
+    resources :topics, only: [:new, :create, :index]
   end  
 end
