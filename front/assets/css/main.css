@@ -1,0 +1,25 @@
+/* 全てのページ遷移時のトランジション設定 */
+.page-enter-active, .page-leave-active {
+  transition: opacity 0.2s
+}
+.page-enter, .page-leave-active {
+  opacity: 0
+}
+
+/* トランジションラッパーコンポーネントで使用 */
+.fade-enter-active, .fade-leave-active {
+  will-change: opacity;
+  transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0
+}
+
+.bottom-right-enter-active, .bottom-right-leave-active {
+  transform: translate(0px, 0px);
+  transition: transform 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+}
+
+.bottom-right-enter, .bottom-right-leave-to {
+  transform: translateY(100vh) translateX(100vh);
+}
