@@ -15,8 +15,12 @@ import { createStore } from './store.js'
 import nuxt_plugin_workbox_6cf6843c from 'nuxt_plugin_workbox_6cf6843c' // Source: ./workbox.js (mode: 'client')
 import nuxt_plugin_nuxticons_76c83a7c from 'nuxt_plugin_nuxticons_76c83a7c' // Source: ./nuxt-icons.js (mode: 'all')
 import nuxt_plugin_plugin_55867a84 from 'nuxt_plugin_plugin_55867a84' // Source: ./vuetify/plugin.js (mode: 'all')
+import nuxt_plugin_webfontloader_3e9d3b74 from 'nuxt_plugin_webfontloader_3e9d3b74' // Source: ./webfontloader.js (mode: 'client')
 import nuxt_plugin_axios_80c87b74 from 'nuxt_plugin_axios_80c87b74' // Source: ./axios.js (mode: 'all')
 import nuxt_plugin_axios_5659d192 from 'nuxt_plugin_axios_5659d192' // Source: ../plugins/axios.js (mode: 'all')
+import nuxt_plugin_storeStorage_3b7cdb27 from 'nuxt_plugin_storeStorage_3b7cdb27' // Source: ../plugins/storeStorage.js (mode: 'client')
+import nuxt_plugin_cookieStorage_1479ca96 from 'nuxt_plugin_cookieStorage_1479ca96' // Source: ../plugins/cookieStorage.js (mode: 'all')
+import nuxt_plugin_veevalidate_1a0c1998 from 'nuxt_plugin_veevalidate_1a0c1998' // Source: ../plugins/vee-validate.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -185,12 +189,28 @@ async function createApp (ssrContext) {
     await nuxt_plugin_plugin_55867a84(app.context, inject)
   }
 
+  if (process.client && typeof nuxt_plugin_webfontloader_3e9d3b74 === 'function') {
+    await nuxt_plugin_webfontloader_3e9d3b74(app.context, inject)
+  }
+
   if (typeof nuxt_plugin_axios_80c87b74 === 'function') {
     await nuxt_plugin_axios_80c87b74(app.context, inject)
   }
 
   if (typeof nuxt_plugin_axios_5659d192 === 'function') {
     await nuxt_plugin_axios_5659d192(app.context, inject)
+  }
+
+  if (process.client && typeof nuxt_plugin_storeStorage_3b7cdb27 === 'function') {
+    await nuxt_plugin_storeStorage_3b7cdb27(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_cookieStorage_1479ca96 === 'function') {
+    await nuxt_plugin_cookieStorage_1479ca96(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_veevalidate_1a0c1998 === 'function') {
+    await nuxt_plugin_veevalidate_1a0c1998(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first

@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_22_092040) do
+ActiveRecord::Schema.define(version: 2019_11_18_054936) do
+
+  create_table "topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "shop_name", null: false
+    t.string "date", null: false
+    t.string "meals", null: false
+    t.string "price", null: false
+    t.string "review", null: false
+    t.integer "rating", null: false
+    t.string "image", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_topics_on_user_id"
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -38,4 +52,5 @@ ActiveRecord::Schema.define(version: 2019_10_22_092040) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "topics", "users"
 end
