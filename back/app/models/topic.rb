@@ -1,6 +1,6 @@
 class Topic < ApplicationRecord
   validates :user_id, presence: true
-	validates :name, presence: true
+	validates :shop_name, presence: true
 	validates :date, presence: true
 	validates :meals, presence: true
 	validates :price, presence: true
