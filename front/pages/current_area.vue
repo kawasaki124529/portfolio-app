@@ -32,10 +32,20 @@
             <v-container fill-height fluid>
               <v-layout fill-height>
                 <v-flex xs12 align-end flexbox>
-                  <span class="headline" style="background-color:rgba(21,21,75,0.2);">{{ shop.catch }}</span>
+                  <span class="headline" style="background-color:rgba(21,21,75,0.5);">{{ shop.catch }}</span>
                 </v-flex>
               </v-layout>
             </v-container>
+            <template v-slot:placeholder>
+              <v-layout
+                fill-height
+                align-center
+                justify-center
+                ma-0
+              >
+                <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+              </v-layout>
+            </template>
           </v-img>
           <v-card-title>
             <div>

@@ -12,5 +12,8 @@ class Api::TopicSerializer < ActiveModel::Serializer
               :updated_at,
               :user_id
               
+
   has_one :user
+  has_many :likes, serializer: Api::LikeSerializer
+  
 end

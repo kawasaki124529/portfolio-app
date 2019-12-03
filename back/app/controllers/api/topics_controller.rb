@@ -20,7 +20,7 @@ module Api
     # end
 
     def create
-      raise ArgumentError, 'invalid params' if params[:image].blank? || params[:name].blank?
+      # raise ArgumentError, 'invalid params' if params[:image].blank? || params[:shop_name].blank?
       @topic = Topic.new
       @topic.user_id   = params[:user_id]
       @topic.shop_name = params[:shop_name]
@@ -33,7 +33,7 @@ module Api
       if @topic.save
         render json: {
           topic: {
-            topic: @topic,
+            topic: @topic, serializer: Api::TopicSerializer
           },
           status: 200
         }

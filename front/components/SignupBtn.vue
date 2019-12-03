@@ -107,11 +107,14 @@
                 uid: response.headers.uid,
               });
               this.$store.commit('auth/updateUser', {
-                userName: response.data.data
+                user: response.data.data
               });
               this.$store.commit('auth/updateIsLoggedIn', true);
               this.$router.push('/');
-              this.dialog = false; 
+              setTimeout(function(){
+                commit('auth/removeAlert', false);
+              },4000);
+              this.dialog = false;
             })
             .catch(error => {
               console.log(error);

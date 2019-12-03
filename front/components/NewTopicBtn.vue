@@ -1,10 +1,11 @@
 <template>
   <v-layout row justify-center>
-    <!-- モーダル部分 -->
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on }">
+        <!-- ボタン部分 -->
         <v-btn
-          color="cyan accent-2"
+          color="cyan accent-5"
+          large
           dark
           fixed
           bottom
@@ -15,7 +16,7 @@
           <v-icon>fas fa-plus</v-icon>
         </v-btn>
       </template>
-      <!-- フォーム部分 -->
+      <!-- モーダル部分 -->
       <v-card>
         <validation-observer v-slot="{ handleSubmit }">
           <v-card-title>
@@ -213,15 +214,14 @@ export default {
     // サーバーへアップロード処理
     upload() {
       let formData = new FormData
-      formData.append('user_id', this.user_id)
-      formData.append('shop_name', this.shopName)
-      formData.append('date', this.date)
-      formData.append('meals', this.meals)
-      formData.append('price', this.price)
-      formData.append('review', this.review)
-      formData.append('rating', this.rating)
-      formData.append('image', this.imageFile)
-
+        formData.append('user_id', this.user_id)
+        formData.append('shop_name', this.shopName)
+        formData.append('date', this.date)
+        formData.append('meals', this.meals)
+        formData.append('price', this.price)
+        formData.append('review', this.review)
+        formData.append('rating', this.rating)
+        formData.append('image', this.imageFile)
       this.$axios.post('http://localhost:8000/api/topics',
       formData,
       {
@@ -230,6 +230,11 @@ export default {
         }
       }).then(response => {
         console.log(response);
+        // アップロード成功時の処理
+        if (response.statusText === "OK"){
+          this.$router.go({path: this.$router.currentRoute.path, force: true});
+        }
+        // エラー時の処理
       }).catch(error => {
         console.log(error);
       })

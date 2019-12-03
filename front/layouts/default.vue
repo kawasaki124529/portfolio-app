@@ -7,12 +7,14 @@
       style="background-color:rgba(5,5,5,0.7);"
     >      
       <!-- ヘッダータイトル -->
-      <v-toolbar-title 
-        class="white--text" 
-        nuxt to="/" 
-        v-text="title" 
-        style="font-family:Sawarabi Gothic"
-      />
+      <v-btn
+        class="white--text font-weight-thin font-italic display-1"
+        text large
+        nuxt
+        to="/"
+      >
+        俺達のハンバーガー！
+      </v-btn>
       <v-btn
         class="white--text"
         text large
@@ -28,7 +30,7 @@
         nuxt
         to="/topics"
       >
-        TOPIC
+        みんなの写真
       </v-btn>
       <v-spacer/>
       <LoginBtn v-show="!isLoggedIn"></LoginBtn>
@@ -51,13 +53,13 @@
         <v-icon right >mdi-menu</v-icon>
       </v-btn>
     </v-app-bar>
-    <!-- pagesの挿入 -->
     <v-content>
       <!-- auth処理時のアラートバー -->
       <SuccessLogin/>
       <FailedLogin/>
       <SuccessLogout/>
       <v-container>
+        <!-- 各ページの挿入 -->
         <nuxt />
       </v-container>
     </v-content>
