@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     }
     resources :topics, only: [:new, :create, :index]
     resources :likes, only: [:index, :create]
+    resources :comments, only: [:index, :create]
     delete '/likes', to: 'likes#destroy'
   end  
 end
