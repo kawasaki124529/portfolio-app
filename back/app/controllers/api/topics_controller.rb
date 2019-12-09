@@ -1,26 +1,27 @@
 module Api
   class TopicsController < ApplicationController
-    def new
-      @topic = Topic.new
-    end
 
     def index
       @topics = Topic.all
       render json: @topics, status: 200
     end
-    # def show
-    #   @dog = Dog.find(params[:id])
-    #   render json: {
-    #     dog: {
-    #       name: @dog.name,
-    #       pic:  @dog.pic.url
-    #     },
-    #     status: 200
-    #   }
-    # end
 
+    # ログインユーザーのお気に入りトピック一覧を返す
+    def likes
+      @user = User.find_by(id: params[:user_id])
+      @like_topics = @user.like_topics
+      render json: @like_topics, status: 200
+    end 
+
+    # ログインユーザーの投稿したトピック一覧を返す
+    def my_topics
+      @user = User.find_by(id: params[:user_id])
+      @topics = @user.topics
+      render json: @topics, status: 200
+    end
+
+    # トピックの投稿アクション
     def create
-      # raise ArgumentError, 'invalid params' if params[:image].blank? || params[:shop_name].blank?
       @topic = Topic.new
       @topic.user_id   = params[:user_id]
       @topic.shop_name = params[:shop_name]
@@ -30,18 +31,18 @@ module Api
       @topic.review    = params[:review]
       @topic.rating    = params[:rating]
       @topic.image     = params[:image]      
+
+      @topics = Topic.all
       if @topic.save
-        render json: {
-          topic: {
-            topic: @topic, serializer: Api::TopicSerializer
-          },
+        render json: 
+          @topics,
           status: 200
-        }
       else
         render json: {
           status: 400
         }
       end
     end
+
   end
 end

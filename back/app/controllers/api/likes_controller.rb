@@ -1,6 +1,4 @@
 class Api::LikesController < ApplicationController
-  # def index
-  # end
 
   def create
     @like = Like.new
