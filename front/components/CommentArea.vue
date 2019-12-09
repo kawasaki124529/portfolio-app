@@ -7,6 +7,7 @@
           label="コメントを追加..."
           v-model="content"
           required
+          v-show="isLoggedIn"
         >
           <template v-slot:append-outer>
             <v-btn 
@@ -25,7 +26,7 @@
       <ul>
         <li v-for="(comment, index) in comments" :key="index" style="list-style:none;">
           <span class="grey--text text--darken-3 mx-4">{{ comment.content }}</span>
-          <span class="grey--text text--darken-3 ml-5">{{ comment.user.name }}</span>
+          <span class="brown--text text--darken-1 ml-5">{{ comment.user.name }}</span>
           <v-divider></v-divider>
         </li>
       </ul>
@@ -47,17 +48,10 @@ export default {
     },
     comments() {
       return this.topic.comments
+    },
+    isLoggedIn(){
+      return this.$store.state.auth.isLoggedIn;
     }
-  },
-  // トピックのコメントの取得
-  async asyncData({ app }) {
-    const res = await app.$axios.$get('http://localhost:8000/api/comments',{
-      params: {
-        topic_id: this.topic.id
-      }
-    });
-    console.log(res);
-    return { topicComments: res }; 
   },
   methods: {
     // railsのコメントcreateアクションへアップロード

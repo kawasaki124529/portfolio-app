@@ -74,11 +74,12 @@
                 <!-- メニュー欄 -->
                 <v-flex xs12 >
                   <ValidationProvider name="注文したメニュー" rules="required" v-slot="{ errors }">
-                    <v-text-field label="注文したメニュー*" 
-                                  hint="複数可、書き込み方自由" 
-                                  :error-messages="errors[0]"
-                                  required
-                                  v-model="meals"
+                    <v-text-field 
+                      label="注文したメニュー*" 
+                      hint="複数可、書き込み方自由" 
+                      :error-messages="errors[0]"
+                      required
+                      v-model="meals"
                     ></v-text-field>
                   </ValidationProvider>
                 </v-flex>
@@ -211,7 +212,7 @@ export default {
         this.imageUrl = "";
       }
     },
-    // サーバーへアップロード処理
+    // railsのcreateアクションへアップロード処理
     upload() {
       let formData = new FormData
         formData.append('user_id', this.user_id)
@@ -232,7 +233,8 @@ export default {
         console.log(response);
         // アップロード成功時の処理
         if (response.statusText === "OK"){
-          this.$router.go({path: this.$router.currentRoute.path, force: true});
+          // this.$router.go({path: this.$router.currentRoute.path, force: true});
+          this.dialog = false;
         }
         // エラー時の処理
       }).catch(error => {

@@ -23,7 +23,7 @@
       <br>
       <!-- 検索結果：店舗情報 -->
       <v-content v-for="shop in shops" :key="shop.id">
-        <v-card class="grey lighten-3 ma-2">
+        <v-card class="grey lighten-3 ma-1">
           <v-img
             class="white--text"
             width="100%"

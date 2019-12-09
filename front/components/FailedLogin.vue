@@ -1,4 +1,5 @@
 <template>
+  <!-- ログイン失敗時のアラート -->
   <v-alert type="error" transition="slide-y-transition" v-show="failedLogin">
     ログインに失敗しました。
   </v-alert>

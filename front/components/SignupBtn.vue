@@ -88,8 +88,8 @@
       };
     },
     methods: {
+      // railsのUser登録にアクセス
       register() {
-        // this.$validator.validateAll().then((result) => {
           this.$axios
             .post(
               'http://localhost:8000/api/auth/',
@@ -99,6 +99,7 @@
                 password_confirmation: this.password_confirmation,
                 name: this.name
               }
+              // 登録成功時処理
             ).then(response => {
               console.log(response);
               this.$store.commit('auth/updateTokens', {
@@ -110,12 +111,13 @@
                 user: response.data.data
               });
               this.$store.commit('auth/updateIsLoggedIn', true);
-              this.$router.push('/');
               setTimeout(function(){
-                commit('auth/removeAlert', false);
+                this.$store.commit('auth/removeAlert', false);
               },4000);
               this.dialog = false;
+              this.$router.push('/');
             })
+            // 登録失敗時処理
             .catch(error => {
               console.log(error);
             });

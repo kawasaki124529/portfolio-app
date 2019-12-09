@@ -37,6 +37,7 @@ export const actions = {
   // ログイン処理
   login({ commit, router }, authData) {
     this.$axios
+          // railsのユーザーコントローラーへアクセス
           .post(
             'http://localhost:8000/api/auth/sign_in',
             {
@@ -44,6 +45,7 @@ export const actions = {
               password: authData.password,
             }
           )
+          // ログイン成功時処理
           .then(response => {
             console.log(response);
             if (response.statusText === "OK"){
@@ -79,7 +81,7 @@ export const actions = {
     commit('successLogout', true);
     setTimeout(function(){
       commit('removeAlert', false);
-    },4000);
+    },3500);
     this.$router.push('/');
   }
 }
