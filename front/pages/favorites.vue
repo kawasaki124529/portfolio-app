@@ -145,7 +145,6 @@
 
 <script>
 import NewTopicBtn from "../components/NewTopicBtn.vue"
-import CommentArea from "../components/CommentArea.vue"
 
 export default {
   data () {
@@ -162,7 +161,6 @@ export default {
     },
   },
   components: {
-    NewTopicBtn,
     CommentArea
   },
   // railsのTopic/likesアクションにアクセスし、お気に入りトピックを取得

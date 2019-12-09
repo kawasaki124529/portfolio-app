@@ -136,14 +136,11 @@
           </v-item-group>
         </v-container>
       </v-card>
-      <!-- トピック投稿コンポーネント -->
-      <NewTopicBtn v-show="isLoggedIn"></NewTopicBtn>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import NewTopicBtn from "../components/NewTopicBtn.vue"
 import CommentArea from "../components/CommentArea.vue"
 
 export default {
@@ -161,7 +158,6 @@ export default {
     },
   },
   components: {
-    NewTopicBtn,
     CommentArea
   },
   // railsのTopic/likesアクションにアクセスし、お気に入りトピックを取得
