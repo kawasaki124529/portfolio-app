@@ -15,5 +15,6 @@ class Api::TopicSerializer < ActiveModel::Serializer
 
   has_one :user
   has_many :likes, serializer: Api::LikeSerializer
+  has_many :comments, serializer: Api::CommentSerializer
   
 end
