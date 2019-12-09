@@ -1,5 +1,5 @@
 <template>
-  <v-app >
+  <v-app>
     <!-- ヘッダーbar -->
     <v-app-bar
       fixed
@@ -58,7 +58,7 @@
       <SuccessLogin/>
       <FailedLogin/>
       <SuccessLogout/>
-      <v-container>
+      <v-container fill-height>
         <!-- 各ページの挿入 -->
         <nuxt />
       </v-container>
@@ -71,18 +71,45 @@
       fixed
     >
       <v-list>
+        <!-- 右リスト内　ホームボタン -->
         <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
+          nuxt
+          to="/"
           exact
         >
           <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon>mdi-apps</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title>ホーム</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <!-- 右リスト内お気に入りボタン -->
+        <v-list-item
+        　v-if="isLoggedIn"
+          nuxt
+          :to="{name: 'favorites', params: { user_id: user.user.id}}"
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>mdi-chart-bubble</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>お気に入り</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <!-- 右リスト内　自分の投稿ボタン -->
+        <v-list-item
+        　v-if="isLoggedIn"
+          nuxt
+          :to="{name: 'my_topics', params: { user_id: user.user.id}}"
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>mdi-chart-bubble</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>自分の投稿</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -108,18 +135,6 @@ export default {
   data () {
     return {
       fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Home',
-          to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        }
-      ],
       rightDrawer: false,
       title: '俺達のハンバーガー！',
     }
