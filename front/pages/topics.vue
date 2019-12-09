@@ -14,7 +14,7 @@
                 :key="i"
                 xs12 sm6 md4
               >
-                <!-- 各トピック -->
+                <!-- トピック個別 -->
                 <v-item v-slot:default="{ active, toggle }">
                 <v-hover>
                   <v-card 
@@ -60,9 +60,10 @@
                           </div>
                         </div>
                         <v-spacer></v-spacer>
-                        <!-- <v-btn icon class="mr-0">
-                          <v-icon>mdi-chevron-right</v-icon>
-                        </v-btn> -->
+                        <v-icon small class="mr-0" color="red">far fa-heart</v-icon>
+                        <span class="ma-1 grey--text text--darken-1">{{ topic.likes.length }}</span>
+                        <v-icon small class="mr-0" color="grey">far fa-comment</v-icon>
+                        <span class="ma-1 grey--text text--darken-1">{{ topic.comments.length }}</span>
                       </v-card-title>
                     </v-card-text>
                     <!-- モーダル部分 -->
@@ -102,13 +103,24 @@
                             </div>
                             <v-divider></v-divider>
                             <div>
+                              <br>
                               <span>{{ topic.review }}</span>
                             </div>
                           </v-card-text>
                         <v-card-actions>
                           <v-spacer/>
+                          <!-- いいねコンポーネント -->
                           <LikeBtn :topic="topic"></LikeBtn>
+                          <!-- コメントコンポーネント -->
+                          <v-btn outlined color="grey darken-1" @click="comments = !comments">
+                            <v-icon>far fa-comment-dots</v-icon>
+                          </v-btn>
                         </v-card-actions>
+                        <v-slide-y-transition>
+                          <v-card-actions v-show="comments">
+                            <CommentArea :topic="topic"></CommentArea>
+                          </v-card-actions>
+                        </v-slide-y-transition>
                       </v-card>
                     </v-dialog>
                   </v-card>
@@ -119,6 +131,7 @@
           </v-item-group>
         </v-container>
       </v-card>
+      <!-- トピック投稿コンポーネント -->
       <NewTopicBtn v-show="isLoggedIn"></NewTopicBtn>
     </v-flex>
   </v-layout>
@@ -128,12 +141,15 @@
 <script>
 import NewTopicBtn from "../components/NewTopicBtn.vue"
 import LikeBtn from "../components/LikeBtn.vue"
+import CommentArea from "../components/CommentArea.vue"
 
 export default {
   data () {
     return {
+      comments: false
     }
   },
+  // ページ読み込み時にTopicコントローラーにgetリクエスト
   async asyncData({ app }) {
     const res = await app.$axios.$get('http://localhost:8000/api/topics');
     console.log(res);
@@ -141,7 +157,8 @@ export default {
   },
   components: {
     NewTopicBtn,
-    LikeBtn
+    LikeBtn,
+    CommentArea
   },
   computed: {
     isLoggedIn(){
