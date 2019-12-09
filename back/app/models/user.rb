@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :topics, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :like_topics, through: :likes, source: 'topic', dependent: :destroy
+  has_many :like_topics, through: :likes, source: :topic
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
