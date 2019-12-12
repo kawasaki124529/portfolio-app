@@ -33,6 +33,7 @@ gem 'devise'
 gem 'devise_token_auth'
 
 gem 'carrierwave'
+gem 'fog-aws'
 
 gem 'active_model_serializers'
 
