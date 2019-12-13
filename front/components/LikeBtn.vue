@@ -32,7 +32,7 @@ export default {
     registerLike(){
       this.$axios
         .post(
-          'http://localhost:8000/api/likes/',
+          process.env.apiBaseUrl + '/api/likes/',
           {
             user_id: this.user.user.id,
             topic_id: this.topic.id,
@@ -50,7 +50,7 @@ export default {
     deleteLike(){
       this.$axios
         .delete(
-          'http://localhost:8000/api/likes/',{
+          process.env.apiBaseUrl + '/api/likes/',{
             params: {
               user_id: this.user.user.id,
               topic_id: this.topic.id,

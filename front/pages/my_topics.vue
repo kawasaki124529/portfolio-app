@@ -162,7 +162,7 @@ export default {
   },
   // railsのTopic/likesアクションにアクセスし、お気に入りトピックを取得
   async asyncData({ $axios, route }) {
-    const res = await $axios.get('http://localhost:8000/api/topics/mytopic',{
+    const res = await $axios.get( process.env.apiBaseUrl + '/api/topics/mytopic',{
       params: { user_id: route.params.user_id }
     })
     console.log(res)

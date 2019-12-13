@@ -1,4 +1,6 @@
 require('dotenv').config()
+const environment = process.env.NODE_ENV;
+const envSet = require(`./env.${environment}.js`)
 
 import colors from 'vuetify/es5/util/colors'
 
@@ -109,5 +111,6 @@ export default {
     ],
     extend (config, ctx) {
     }
-  }
+  },
+  env: envSet
 }

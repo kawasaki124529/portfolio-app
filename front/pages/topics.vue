@@ -150,8 +150,8 @@ export default {
     }
   },
   // ページ読み込み時にTopicコントローラーにgetリクエスト
-  async asyncData({ app }) {
-    const res = await app.$axios.$get('http://localhost:8000/api/topics');
+  async asyncData({ app }) { 
+    const res = await app.$axios.$get( process.env.apiBaseUrl + '/api/topics' );
     console.log(res);
     return { topics: res }; 
   },

@@ -39,7 +39,7 @@ export const actions = {
     this.$axios
           // railsのユーザーコントローラーへアクセス
           .post(
-            'http://localhost:8000/api/auth/sign_in',
+            process.env.apiBaseUrl + '/api/auth/sign_in',
             {
               email: authData.email,
               password: authData.password,

@@ -137,14 +137,12 @@
           </v-item-group>
         </v-container>
       </v-card>
-      <!-- トピック投稿コンポーネント -->
-      <NewTopicBtn v-show="isLoggedIn"></NewTopicBtn>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import NewTopicBtn from "../components/NewTopicBtn.vue"
+import CommentArea from "../components/CommentArea.vue"
 
 export default {
   data () {
@@ -165,7 +163,7 @@ export default {
   },
   // railsのTopic/likesアクションにアクセスし、お気に入りトピックを取得
   async asyncData({ $axios, route }) {
-    const res = await $axios.get('http://localhost:8000/api/topics/like',{
+    const res = await $axios.get( process.env.apiBaseUrl + '/api/topics/like',{
       params: { user_id: route.params.user_id }
     })
     console.log(res)

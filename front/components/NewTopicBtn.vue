@@ -223,7 +223,7 @@ export default {
         formData.append('review', this.review)
         formData.append('rating', this.rating)
         formData.append('image', this.imageFile)
-      this.$axios.post('http://localhost:8000/api/topics',
+      this.$axios.post( process.env.apiBaseUrl + '/api/topics',
       formData,
       {
         headers: {

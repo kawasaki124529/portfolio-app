@@ -92,7 +92,7 @@
       register() {
           this.$axios
             .post(
-              'http://localhost:8000/api/auth/',
+              process.env.apiBaseUrl + '/api/auth/',
               {
                 email: this.email,
                 password: this.password,

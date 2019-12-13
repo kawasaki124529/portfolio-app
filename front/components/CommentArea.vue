@@ -58,7 +58,7 @@ export default {
     commentUpload(){
       this.$axios
         .post(
-          'http://localhost:8000/api/comments/',
+          process.env.apiBaseUrl + '/api/comments/',
           {
             user_id: this.user.user.id,
             topic_id: this.topic.id,
