@@ -44,5 +44,19 @@ module Api
       end
     end
 
+    # トピック削除アクション
+    def destroy
+      @topic = Topic.find_by(id: params[:topic_id])
+      if @topic.destroy
+        render json: {
+          status: 200
+        }
+      else
+        render json: {
+          status: 401
+        }
+      end
+    end
+
   end
 end

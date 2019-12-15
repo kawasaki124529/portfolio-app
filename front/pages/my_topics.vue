@@ -120,6 +120,8 @@
                           <v-btn outlined color="grey darken-1" @click="comments = !comments">
                             <v-icon>far fa-comment-dots</v-icon>
                           </v-btn>
+                          <!-- トピック削除コンポーネント -->
+                          <DeleteBtn :topic="topic"></DeleteBtn>
                         </v-card-actions>
                         <v-slide-y-transition>
                           <v-card-actions v-show="comments">
@@ -142,6 +144,7 @@
 
 <script>
 import CommentArea from "../components/CommentArea.vue"
+import DeleteBtn from "../components/DeleteBtn.vue"
 
 export default {
   data () {
@@ -158,7 +161,8 @@ export default {
     },
   },
   components: {
-    CommentArea
+    CommentArea,
+    DeleteBtn
   },
   // railsのTopic/likesアクションにアクセスし、お気に入りトピックを取得
   async asyncData({ $axios, route }) {
