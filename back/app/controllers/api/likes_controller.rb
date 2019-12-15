@@ -1,14 +1,15 @@
-class Api::LikesController < ApplicationController
+# frozen_string_literal: true
 
+class Api::LikesController < ApplicationController
   def create
     @like = Like.new
     @like.user_id = params[:user_id]
     @like.topic_id = params[:topic_id]
     @topic = Topic.find_by(id: params[:topic_id])
     if @like.save
-      render json: 
+      render json:
         @topic,
-        status: 200
+             status: 200
     else
       render json: {
         status: 400
@@ -20,9 +21,9 @@ class Api::LikesController < ApplicationController
     @like = Like.find_by(user_id: params[:user_id], topic_id: params[:topic_id])
     @topic = Topic.find_by(id: params[:topic_id])
     if @like.destroy
-      render json: 
+      render json:
         @topic,
-        status: 201
+             status: 201
     else
       render json: {
         status: 401

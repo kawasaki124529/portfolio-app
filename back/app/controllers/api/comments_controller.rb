@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::CommentsController < ApplicationController
   def index
     @comments = Comment.find_by(topic_id: params[:topic_id])
@@ -11,9 +13,9 @@ class Api::CommentsController < ApplicationController
     @comment.content = params[:content]
     @topic = Topic.find_by(id: params[:topic_id])
     if @comment.save
-      render json: 
+      render json:
         @topic,
-        status: 200
+             status: 200
     else
       render json: {
         status: 400

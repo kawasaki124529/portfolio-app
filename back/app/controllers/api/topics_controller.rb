@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module Api
   class TopicsController < ApplicationController
-
     def index
       @topics = Topic.all
       render json: @topics, status: 200
@@ -11,7 +12,7 @@ module Api
       @user = User.find_by(id: params[:user_id])
       @like_topics = @user.like_topics
       render json: @like_topics, status: 200
-    end 
+    end
 
     # ログインユーザーの投稿したトピック一覧を返す
     def my_topics
@@ -30,13 +31,13 @@ module Api
       @topic.price     = params[:price]
       @topic.review    = params[:review]
       @topic.rating    = params[:rating]
-      @topic.image     = params[:image]      
+      @topic.image     = params[:image]
 
       @topics = Topic.all
       if @topic.save
-        render json: 
+        render json:
           @topics,
-          status: 200
+               status: 200
       else
         render json: {
           status: 400
@@ -57,6 +58,5 @@ module Api
         }
       end
     end
-
   end
 end
