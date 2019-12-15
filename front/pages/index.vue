@@ -1,6 +1,5 @@
 <template>
   <v-layout class="wrapper" >
-      <p>home</p>
   </v-layout>
 </template>
 

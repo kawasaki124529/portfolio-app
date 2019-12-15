@@ -1,9 +1,9 @@
 <template>
   <!-- ログイン失敗時のアラート -->
   <v-alert type="error" transition="slide-y-transition" v-show="failedLogin">
-    ログインに失敗しました。
+    ログイン/サインアップに失敗しました。
   </v-alert>
-</template>
+</template>/
 
 <script>
 export default {

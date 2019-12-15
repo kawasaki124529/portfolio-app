@@ -72,10 +72,11 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: { 
+    proxy: true,
   },
   proxy: {
-    '/api': { target: 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/',
-              pathRewrite: { '^/api' : '/'}
+    '/api/': { target: 'https://webservice.recruit.co.jp/hotpepper/gourmet/v1/',
+              pathRewrite: { '^/api/' : '/'}
             },
   },
   /*
