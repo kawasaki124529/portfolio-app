@@ -132,7 +132,7 @@
         </v-container>
       </v-card>
       <!-- トピック投稿コンポーネント -->
-      <NewTopicBtn v-show="isLoggedIn"></NewTopicBtn>
+      <NewTopicBtn v-show="isLoggedIn" @newTopics="updataTopics"></NewTopicBtn>
     </v-flex>
   </v-layout>
 
@@ -165,5 +165,10 @@ export default {
       return this.$store.state.auth.isLoggedIn;
     }
   },
+  methods: {
+    updataTopics( topicsData ) {
+      this.$set(this.topics, topicsData)
+    }
+  }
 }
 </script>
