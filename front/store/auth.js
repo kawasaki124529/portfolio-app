@@ -34,6 +34,46 @@ export const mutations = {
 }
 
 export const actions = {
+  // サインアップ処理
+  sign_up({ commit, router }, authData) {
+    this.$axios
+      .post(
+        process.env.apiBaseUrl + '/api/auth/',
+        {
+          email: authData.email,
+          password: authData.password,
+          password_confirmation: authData.password_confirmation,
+          name: authData.name
+        }
+        // 登録成功時処理
+      ).then(response => {
+        console.log(response);
+        if (response.status === 200){
+          commit('updateTokens', {
+            accessToken: response.headers['access-token'],
+            expiry: response.headers.expiry,
+            uid: response.headers.uid,
+          });
+          commit('updateUser', {
+            user: response.data.data
+          });
+          commit('updateIsLoggedIn', true);
+          setTimeout(function(){
+            commit('removeAlert', false);
+          },4000);
+          // this.dialog = false;
+          this.$router.push('/');
+        }
+      })
+      // 登録失敗時処理
+      .catch(error => {
+        console.log(error);
+        commit('failedLogin', true);
+        setTimeout(function(){
+          commit('removeAlert', false);
+        },4000);
+      });
+  },
   // ログイン処理
   login({ commit, router }, authData) {
     this.$axios
@@ -48,7 +88,7 @@ export const actions = {
           // ログイン成功時処理
           .then(response => {
             console.log(response);
-            if (response.statusText === "OK"){
+            if (response.status === 200){
               commit('updateTokens', {
                 accessToken: response.headers['access-token'],
                 expiry: response.headers.expiry,

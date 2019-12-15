@@ -88,40 +88,16 @@
       };
     },
     methods: {
-      // railsのUser登録にアクセス
+      // railsのUser登録にアクセスしsign_up処理
       register() {
-          this.$axios
-            .post(
-              process.env.apiBaseUrl + '/api/auth/',
-              {
-                email: this.email,
-                password: this.password,
-                password_confirmation: this.password_confirmation,
-                name: this.name
-              }
-              // 登録成功時処理
-            ).then(response => {
-              console.log(response);
-              this.$store.commit('auth/updateTokens', {
-                accessToken: response.headers['access-token'],
-                expiry: response.headers.expiry,
-                uid: response.headers.uid,
-              });
-              this.$store.commit('auth/updateUser', {
-                user: response.data.data
-              });
-              this.$store.commit('auth/updateIsLoggedIn', true);
-              setTimeout(function(){
-                this.$store.commit('auth/removeAlert', false);
-              },4000);
-              this.dialog = false;
-              this.$router.push('/');
-            })
-            // 登録失敗時処理
-            .catch(error => {
-              console.log(error);
-            });
-      }
+        this.$store.dispatch('auth/sign_up', {
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.password_confirmation,
+          name: this.name
+        });
+        this.dialog = false;
+      } 
     },
     computed: {
       isLoggedIn(){
