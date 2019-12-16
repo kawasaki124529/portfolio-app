@@ -89,10 +89,6 @@ Linux上でdockerを使い開発しています。
 
 開発当時はvagrantの存在を知らなかったため、今後windownsで開発していくならvagrantの導入を検討したいですが、それよりも早くエンジニアリングでお金を稼ぐことでMacを購入したいと思っています。
 
-## Author
+## その他
 
-[@b4b4r07](https://twitter.com/b4b4r07)
-
-## License
-
-[MIT](http://b4b4r07.mit-license.org)
+- 今後はテストの導入を、CI/CDパイプラインなどを導入していきたい。
