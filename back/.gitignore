@@ -29,3 +29,14 @@
 bin/
 
 .mysql_history
+
+config.ru
+
+Rakefile
+
+vendor/
+
+tmp/
+
+.local/
+.cache/

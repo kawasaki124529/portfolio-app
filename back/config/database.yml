@@ -16,10 +16,14 @@ default: &default
 
 development:
   <<: *default
-  database: app_development
-  username: root
-  password: <%= ENV.fetch("MYSQL_ROOT_PASSWORD") { '' } %>
-  host: db
+  # database: app_development
+  # username: root
+  # password: <%= ENV.fetch("MYSQL_ROOT_PASSWORD") { '' } %>
+  # host: db
+  host: <%= Rails.application.credentials.rds[:host] %>
+  database: <%= Rails.application.credentials.rds[:database] %>
+  username: <%= Rails.application.credentials.rds[:username] %>
+  password: <%= Rails.application.credentials.rds[:password] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

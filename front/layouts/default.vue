@@ -17,6 +17,7 @@
         現在地周辺のお店を探す
       </v-btn>
       <v-btn class="white--text" text large nuxt to="/topics">
+        <v-icon>fas fa-camera-retro fa-xs</v-icon>
         みんなの写真
       </v-btn>
       <v-spacer />
@@ -59,7 +60,7 @@
             <v-list-item-title>ホーム</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <!-- 右リスト内お気に入りボタン -->
+        <!-- 右リスト内お気に入りボタン（ログイン時のみ表示） -->
         <v-list-item
           v-if="isLoggedIn"
           nuxt
@@ -67,13 +68,13 @@
           exact
         >
           <v-list-item-action>
-            <v-icon>mdi-chart-bubble</v-icon>
+            <v-icon>fas fa-heart</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>お気に入り</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <!-- 右リスト内 自分の投稿ボタン -->
+        <!-- 右リスト内 自分の投稿ボタン（ログイン時のみ表示） -->
         <v-list-item
           v-if="isLoggedIn"
           nuxt
@@ -81,10 +82,28 @@
           exact
         >
           <v-list-item-action>
-            <v-icon>mdi-chart-bubble</v-icon>
+            <v-icon>fas fa-camera</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>自分の投稿</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <!-- 右リスト内 current_areaボタン -->
+        <v-list-item nuxt to="/current_area" exact>
+          <v-list-item-action>
+            <v-icon>fas fa-search-location</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>現在地周辺のお店を探す</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <!-- 右リスト内 みんなの写真ボタン -->
+        <v-list-item nuxt to="/topics" exact>
+          <v-list-item-action>
+            <v-icon>fas fa-camera-retro</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>みんなの写真</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
