@@ -87,7 +87,7 @@ windowns10 Home EditionのPCを利用しています。
 このOSではDockerが使うことが難しいため、vmwareで仮想Linux(ubuntu)を立ち上げて
 Linux上でdockerを使い開発しています。
 
-開発当時はvagrantの存在を知らなかったため、今後windownsで開発いくならvagrantの導入を検討したいですが、それよりも早くエンジニアリングでお金を稼くことでMacを購入したいと思っています。
+開発当時はvagrantの存在を知らなかったため、今後windownsで開発していくならvagrantの導入を検討したいですが、それよりも早くエンジニアリングでお金を稼ぐことでMacを購入したいと思っています。
 
 ## Author
 
