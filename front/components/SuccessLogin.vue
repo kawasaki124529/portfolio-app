@@ -1,5 +1,5 @@
 <template>
-  <v-alert type="success" transition="slide-y-transition" v-if="successLogin">
+  <v-alert v-if="successLogin" type="success" transition="slide-y-transition">
     こんにちは{{ user.user.name }}さん！
   </v-alert>
 </template>
@@ -7,10 +7,10 @@
 <script>
 export default {
   computed: {
-    successLogin(){
-      return this.$store.state.auth.successLogin;
+    successLogin() {
+      return this.$store.state.auth.successLogin
     },
-    user(){
+    user() {
       return this.$store.state.auth.User
     }
   }

@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "ourhamburger",
   "version": "1.0.0",
   "description": "My posh Nuxt.js project",
   "author": "kawasaki",
@@ -8,7 +8,10 @@
     "dev": "cross-env NODE_ENV=\"dev\" nuxt",
     "build": "cross-env NODE_ENV=\"pro\" nuxt build",
     "start": "cross-env NODE_ENV=\"pro\" nuxt start",
-    "generate": "cross-env NODE_ENV=\"pro\" nuxt generate"
+    "generate": "cross-env NODE_ENV=\"pro\" nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
+    "prettier": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
@@ -26,6 +29,18 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
     "@nuxtjs/vuetify": "^1.9.0",
-    "material-design-icons-iconfont": "^5.0.1"
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-loader": "^3.0.3",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-vue": "^6.0.1",
+    "material-design-icons-iconfont": "^5.0.1",
+    "prettier": "^1.19.1"
   }
 }

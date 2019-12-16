@@ -1,36 +1,36 @@
 export const state = () => {
   return {
-    Tokens : {}, 
+    Tokens: {},
     User: "",
     isLoggedIn: false,
     successLogin: false,
     failedLogin: false,
-    successLogout: false,
+    successLogout: false
   }
 }
 
 export const mutations = {
-  updateTokens(state, Tokens){
-    state.Tokens = Tokens;
+  updateTokens(state, Tokens) {
+    state.Tokens = Tokens
   },
-  updateUser(state, user){
-    state.User = user;
+  updateUser(state, user) {
+    state.User = user
   },
-  updateIsLoggedIn(state, boolean){
-    state.isLoggedIn = boolean;
-    state.successLogin = boolean;
+  updateIsLoggedIn(state, boolean) {
+    state.isLoggedIn = boolean
+    state.successLogin = boolean
   },
-  removeAlert(state, payload){
-    state.successLogin = payload;
-    state.failedLogin = payload;
-    state.successLogout = payload;
+  removeAlert(state, payload) {
+    state.successLogin = payload
+    state.failedLogin = payload
+    state.successLogout = payload
   },
-  failedLogin(state, payload){
-    state.failedLogin = payload;
+  failedLogin(state, payload) {
+    state.failedLogin = payload
   },
-  successLogout(state, payload){
-    state.successLogout = payload;
-  },
+  successLogout(state, payload) {
+    state.successLogout = payload
+  }
 }
 
 export const actions = {
@@ -38,7 +38,7 @@ export const actions = {
   sign_up({ commit, router }, authData) {
     this.$axios
       .post(
-        process.env.apiBaseUrl + '/api/auth/',
+        process.env.apiBaseUrl + "/api/auth/",
         {
           email: authData.email,
           password: authData.password,
@@ -46,84 +46,82 @@ export const actions = {
           name: authData.name
         }
         // 登録成功時処理
-      ).then(response => {
-        console.log(response);
-        if (response.status === 200){
-          commit('updateTokens', {
-            accessToken: response.headers['access-token'],
+      )
+      .then(response => {
+        console.log(response)
+        if (response.status === 200) {
+          commit("updateTokens", {
+            accessToken: response.headers["access-token"],
             expiry: response.headers.expiry,
-            uid: response.headers.uid,
-          });
-          commit('updateUser', {
+            uid: response.headers.uid
+          })
+          commit("updateUser", {
             user: response.data.data
-          });
-          commit('updateIsLoggedIn', true);
-          setTimeout(function(){
-            commit('removeAlert', false);
-          },4000);
+          })
+          commit("updateIsLoggedIn", true)
+          setTimeout(function() {
+            commit("removeAlert", false)
+          }, 4000)
           // this.dialog = false;
-          this.$router.push('/');
+          this.$router.push("/")
         }
       })
       // 登録失敗時処理
       .catch(error => {
-        console.log(error);
-        commit('failedLogin', true);
-        setTimeout(function(){
-          commit('removeAlert', false);
-        },4000);
-      });
+        console.log(error)
+        commit("failedLogin", true)
+        setTimeout(function() {
+          commit("removeAlert", false)
+        }, 4000)
+      })
   },
   // ログイン処理
   login({ commit, router }, authData) {
     this.$axios
-          // railsのユーザーコントローラーへアクセス
-          .post(
-            process.env.apiBaseUrl + '/api/auth/sign_in',
-            {
-              email: authData.email,
-              password: authData.password,
-            }
-          )
-          // ログイン成功時処理
-          .then(response => {
-            console.log(response);
-            if (response.status === 200){
-              commit('updateTokens', {
-                accessToken: response.headers['access-token'],
-                expiry: response.headers.expiry,
-                uid: response.headers.uid,
-              });
-              commit('updateUser', {
-                user: response.data.data
-              });
-              commit('updateIsLoggedIn', true);
-              this.$router.push('/');
-              setTimeout(function(){
-                commit('removeAlert', false);
-              },4000);
-            }
+      // railsのユーザーコントローラーへアクセス
+      .post(process.env.apiBaseUrl + "/api/auth/sign_in", {
+        email: authData.email,
+        password: authData.password
+      })
+      // ログイン成功時処理
+      .then(response => {
+        console.log(response)
+        if (response.status === 200) {
+          commit("updateTokens", {
+            accessToken: response.headers["access-token"],
+            expiry: response.headers.expiry,
+            uid: response.headers.uid
           })
-          // ログイン失敗の際の処理
-          .catch(error => {
-            console.log(error);
-            commit('failedLogin', true);
-            setTimeout(function(){
-              commit('removeAlert', false);
-            },4000);
-        })
+          commit("updateUser", {
+            user: response.data.data
+          })
+          commit("updateIsLoggedIn", true)
+          this.$router.push("/")
+          setTimeout(function() {
+            commit("removeAlert", false)
+          }, 4000)
+        }
+      })
+      // ログイン失敗の際の処理
+      .catch(error => {
+        console.log(error)
+        commit("failedLogin", true)
+        setTimeout(function() {
+          commit("removeAlert", false)
+        }, 4000)
+      })
   },
   // ログアウト処理
   logout({ commit }) {
-    commit('updateTokens', null);
-    commit('updateUser', null);
-    commit('updateIsLoggedIn', false);
-    commit('successLogout', true);
-    setTimeout(function(){
-      commit('removeAlert', false);
-    },3500);
-    this.$router.push('/');
+    commit("updateTokens", null)
+    commit("updateUser", null)
+    commit("updateIsLoggedIn", false)
+    commit("successLogout", true)
+    setTimeout(function() {
+      commit("removeAlert", false)
+    }, 3500)
+    this.$router.push("/")
   }
 }
 
-export const strict = false;
+export const strict = false

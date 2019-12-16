@@ -1,13 +1,12 @@
 <template>
-  <v-layout class="wrapper" >
-  </v-layout>
+  <v-layout class="wrapper" />
 </template>
 
 <style scoped>
 .wrapper {
   width: 100vw;
   height: 100vh;
-  background-image: url('../assets/pic-3.jpg');
+  background-image: url("../assets/pic-3.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;

@@ -1,6 +1,6 @@
 <template>
   <v-card-actions v-if="isLoggedIn">
-    <v-btn  outlined color="grey darken-1" @click="deleteTopic()">
+    <v-btn outlined color="grey darken-1" @click="deleteTopic()">
       <v-icon>far fa-trash-alt</v-icon>
     </v-btn>
   </v-card-actions>
@@ -10,30 +10,29 @@
 export default {
   props: ["topic"],
   computed: {
-    isLoggedIn(){
-      return this.$store.state.auth.isLoggedIn;
+    isLoggedIn() {
+      return this.$store.state.auth.isLoggedIn
     },
-    user(){
+    user() {
       return this.$store.state.auth.User
-    },
+    }
     // ログインユーザが,いいねしているかの判定処理
   },
   methods: {
     // rails側のdestroyアクションにリクエストするメソッド
-    deleteTopic(){
+    deleteTopic() {
       this.$axios
-        .delete(
-          process.env.apiBaseUrl + '/api/topics/', {
-            params: {
-              topic_id: this.topic.id,
-            }
+        .delete(process.env.apiBaseUrl + "/api/topics", {
+          params: {
+            topic_id: this.topic.id
           }
-        ).then(res => {
-          console.log(res);
-          this.$router.go({path: this.$router.currentRoute.path, force: true});
+        })
+        .then(res => {
+          console.log(res)
+          this.$router.go({ path: this.$router.currentRoute.path, force: true })
         })
         .catch(error => {
-          console.log(error);
+          console.log(error)
         })
     }
   }

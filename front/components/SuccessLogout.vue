@@ -1,5 +1,5 @@
 <template>
-  <v-alert type="info" transition="slide-y-transition" v-show="successLogout">
+  <v-alert v-show="successLogout" type="info" transition="slide-y-transition">
     またのお越しをお待ちしております！
   </v-alert>
 </template>
@@ -7,9 +7,9 @@
 <script>
 export default {
   computed: {
-    successLogout(){
-      return this.$store.state.auth.successLogout;
-    },
+    successLogout() {
+      return this.$store.state.auth.successLogout
+    }
   }
 }
 </script>
