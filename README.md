@@ -66,6 +66,7 @@ https://www.ourhamburger.site/
 - fortawesome/fontawesome-free
 - eslint
 - prettier
+- lodash
 
 ## クラウドアーキテクチャ
 
@@ -92,3 +93,10 @@ Linux上でdockerを使い開発しています。
 ## その他
 
 - 今後はテストの導入を、CI/CDパイプラインなどを導入していきたい。
+
+## 追記
+
+- フロントエンドにlodash及びTopicのソート機能の追加(12/17)
+
+
+
