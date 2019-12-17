@@ -76,6 +76,14 @@
               </v-btn>
             </v-card-actions>
           </validation-observer>
+          <!-- ローディング表示 -->
+          <v-progress-linear
+            :active="loading"
+            :indeterminate="loading"
+            absolute
+            bottom
+            color="deep-purple accent-4"
+          ></v-progress-linear>
         </v-card>
       </v-container>
     </v-flex>
@@ -90,6 +98,7 @@ export default {
       password: "",
       password_confirmation: "",
       name: "",
+      loading: false
     }
   },
   computed: {
@@ -100,13 +109,13 @@ export default {
   methods: {
     // railsのUser登録にアクセスしsign_up処理
     register() {
+      this.loading = true;
       this.$store.dispatch("auth/sign_up", {
         email: this.email,
         password: this.password,
         password_confirmation: this.password_confirmation,
         name: this.name
       })
-      this.dialog = false
     }
   }
 }

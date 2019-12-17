@@ -50,6 +50,14 @@
               </v-btn>
             </v-card-actions>
           </validation-observer>
+          <!-- ローディング中の表示 -->
+          <v-progress-linear
+            :active="loading"
+            :indeterminate="loading"
+            absolute
+            bottom
+            color="deep-purple accent-4"
+          ></v-progress-linear>
         </v-card>
       </v-container>
     </v-flex>
@@ -62,6 +70,7 @@ export default {
     return {
       email: "",
       password: "",
+      loading: false
     }
   },
   computed: {
@@ -71,19 +80,19 @@ export default {
   },
   methods: {
     login() {
+      this.loading = true;
       this.$store.dispatch("auth/login", {
         email: this.email,
         password: this.password
       })
-      this.dialog = false
     },
     // テストユーザー用ログイン
     easyLogin() {
+      this.loading = true;
       this.$store.dispatch("auth/login", {
         email: "test@test.com",
         password: "testtest"
       })
-      this.dialog = false
     }
   }
 }
