@@ -1,6 +1,7 @@
 require("dotenv").config()
 const environment = process.env.NODE_ENV
 const envSet = require(`./env.${environment}.js`)
+const webpack = require('webpack')
 
 import colors from "vuetify/es5/util/colors"
 
@@ -113,6 +114,11 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    plugins: [
+      new webpack.ProvidePlugin({
+        '_': 'lodash'
+      })
+    ],
     transpile: ["vuetify/lib", "vee-validate/dist/rules"],
     extend(config, ctx) {}
   },
