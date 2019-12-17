@@ -98,7 +98,7 @@
           </v-list-item-content>
         </v-list-item>
         <!-- 右リスト内 みんなの写真ボタン -->
-        <v-list-item nuxt to="/topics" exact>
+        <v-list-item nuxt to="/topics" exact >
           <v-list-item-action>
             <v-icon>fas fa-camera-retro</v-icon>
           </v-list-item-action>
@@ -106,6 +106,23 @@
             <v-list-item-title>みんなの写真</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <!-- 右リスト内 ログインボタン -->
+        <v-list-item nuxt to="/login" exact v-if="!isLoggedIn">
+          <v-list-item-action>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>LOGIN</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <!-- 右リスト内 サインアップボタン -->
+        <v-list-item nuxt to="/sign_up" exact v-if="!isLoggedIn">
+          <v-list-item-action>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>SIGNUP</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
       </v-list>
     </v-navigation-drawer>
     <!-- フッター -->
