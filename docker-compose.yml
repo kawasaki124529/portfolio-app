@@ -11,7 +11,7 @@ services:
 
   back:
     build: ./back
-    command: /bin/sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s puma -b ${BACKEND_HOST} -p 3000 -e production"
+    command: /bin/sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s puma -b ${BACKEND_HOST} -p 3000"
     volumes:
       - ./back:/app
       - backend-bundle:/usr/local/bundle
