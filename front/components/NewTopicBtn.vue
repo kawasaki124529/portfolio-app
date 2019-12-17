@@ -201,13 +201,22 @@
             <v-btn color="blue darken-1" text @click="dialog = false">
               閉じる
             </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click.prevent="handleSubmit(upload)"
-            >
-              投稿
-            </v-btn>
+            <v-scale-transition>
+              <v-btn
+                v-show="!loading"
+                color="blue darken-1"
+                text
+                @click.prevent="handleSubmit(upload)"
+              >
+                投稿
+              </v-btn>
+            </v-scale-transition>
+            <!-- 送信時のグルグルloading -->
+            <v-progress-circular
+              v-show="loading"
+              :indeterminate="loading"
+              color="green"
+            ></v-progress-circular>
           </v-card-actions>
         </validation-observer>
       </v-card>
@@ -232,7 +241,8 @@ export default {
       imageUrl: "",
       imageFile: "",
       dialog: false,
-      TopicsData: ""
+      TopicsData: "",
+      loading: false
     }
   },
   computed: {
@@ -266,6 +276,7 @@ export default {
     },
     // railsのcreateアクションへアップロード処理
     upload() {
+      this.loading = true
       let formData = new FormData()
       formData.append("user_id", this.user_id)
       formData.append("shop_name", this.shopName)
