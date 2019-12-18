@@ -59,7 +59,6 @@
                           name="訪問日"
                           rules="required"
                         >
-                          >
                           <v-text-field
                             v-model="date"
                             label="訪問日*"
@@ -83,7 +82,6 @@
                         >
                           OK
                         </v-btn>
-                        >
                       </v-date-picker>
                     </v-menu>
                   </v-flex>

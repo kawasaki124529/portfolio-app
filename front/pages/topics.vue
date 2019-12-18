@@ -47,7 +47,7 @@ export default {
     // セレクタの値によってソートの切り替え
     TopicOrderBy() {
       if (this.sortKey === "date" ) {
-        return _.orderBy(this.topics, ['date'], ['asc']);
+        return _.orderBy(this.topics, ['created_at'], ['desc']);
       }
       else if ( this.sortKey === "likes" ) {
         return _.orderBy(this.topics, [`likes`], ['desc']);
