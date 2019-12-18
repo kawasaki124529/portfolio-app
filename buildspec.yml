@@ -1,0 +1,29 @@
+version: 0.2
+
+phases: 
+  install:
+    commands:
+      - pip3 install awscli --upgrade --user
+  pre_build:
+    commands:
+      ## Login ECR
+      - $(aws ecr get-login --no-include-email --region ap-northeast-1)
+      ## Dockerイメージのタグとして使用するため、Gitのコミットハッシュを取得
+      - IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - FRONT_IMAGE_URI=$AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/$FRONT_REPO_NAME
+      - BACK_IMAGE_URI=$AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/$BACK_REPO_NAME
+  build: 
+    commands: 
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t $FRONT_IMAGE_URI:$IMAGE_TAG ./front
+      - docker build -t $BACK_IMAGE_URI:$IMAGE_TAG .back
+  post_build: 
+    commands: 
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push $FRONT_IMAGE_URI:$IMAGE_TAG
+      - docker push $BACK_IMAGE_URI:$IMAGE_TAG
+      # タスク定義のイメージ名を書き換える
+      - cat taskdef-production-template.json | sed -e s@\<IMAGE_FRONT_NAME\>@$FRONT_IMAGE_URI:$IMAGE_TAG@ -e s@\<IMAGE_BACK_NAME\>@$BACK_IMAGE_URI:$IMAGE_TAG@ > taskdef.json
+

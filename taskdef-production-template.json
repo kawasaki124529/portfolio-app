@@ -1,0 +1,28 @@
+[
+  {
+    "name": "front",
+    "image": "101696717337.dkr.ecr.ap-northeast-1.amazonaws.com/front:0.13",
+    "cpu": 500,
+    "portMappings": [
+      {
+        "containerPort": 3000,
+        "hostPort": 80
+      }
+    ],
+    "memory": 500,
+    "essential": true
+  },
+  {
+    "name": "back",
+    "image": "101696717337.dkr.ecr.ap-northeast-1.amazonaws.com/back:0.8",
+    "cpu": 450,
+    "portMappings": [
+      {
+        "containerPort": 3000,
+        "hostPort": 3000
+      }
+    ],
+    "memory": 450,
+    "essential": false
+  }
+]
