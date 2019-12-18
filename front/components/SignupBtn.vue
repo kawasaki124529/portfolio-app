@@ -60,7 +60,7 @@
             <ValidationProvider
               v-slot="{ errors }"
               name="Password(確認用)"
-              rules="required|min:4"
+              rules="required|min:4|confirmed:password"
             >
               <v-text-field
                 id="password_confirmation"
