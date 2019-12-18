@@ -3,6 +3,8 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  validates :email, presence: true, uniqueness: {case_sensitive: false}
+
   has_many :topics, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
