@@ -54,7 +54,12 @@ https://www.ourhamburger.site/
 - carrierwave
 - fog-aws
 - active_model_serializers
+- pry
 - rubocop
+- rspec-rails'
+  - factory_bot_rails'
+  - rails-controller-testing'
+  - spring-commands-rspec
 
 ***使用しているJavaScriptパッケージ:***
 - nuxtjs/axios
@@ -99,6 +104,6 @@ Linux上でdockerを使い開発しています。
 ## 追記
 
 - フロントエンドにlodash及びTopicのソート機能の追加(12/17)
-
+- バックエンドのテストを書き始めました(12/18)
 
 
