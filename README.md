@@ -28,17 +28,18 @@ https://www.ourhamburger.site/
 
 ## 使用技術
 
+***開発環境:***
 - docker
   - docker-compose
+
+***サーバーサイド:***
 - mysql:5.7
 - Ruby:2.6.3
   - Rails:5.2.3  
-- node:12.9.0
-  - Nuxt:2.0
-  - Vuetify(UI)
 - AWS
   - ECS/ECR
-  - EC2/ALB
+  - EC2
+  - ALB
   - RDS for MySQL
   - S3
   - CloudFront
@@ -47,7 +48,7 @@ https://www.ourhamburger.site/
   - VPC
   - CloudWatch
 
-***使用しているgem:***
+***gem:***
 - rack-cors
 - devise
   - devise_token_auth
@@ -61,7 +62,12 @@ https://www.ourhamburger.site/
   - rails-controller-testing'
   - spring-commands-rspec
 
-***使用しているJavaScriptパッケージ:***
+***フロントエンド:***
+- node:12.9.0
+  - Nuxt:2.0
+  - Vuetify(UI)
+
+***javaScriptパッケージ:***
 - nuxtjs/axios
 - nuxtjs/dotenv
 - nuxtjs/proxy
