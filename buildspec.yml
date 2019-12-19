@@ -5,10 +5,12 @@ phases:
     runtime-versions:
       docker: 18
     commands:
+      - echo install step...
       - pip3 install awscli --upgrade --user
   pre_build:
     commands:
       ## Login ECR
+      - echo logging in to AWS ECR...
       - $(aws ecr get-login --no-include-email --region ap-northeast-1)
       ## Dockerイメージのタグとして使用するため、Gitのコミットハッシュを取得
       - IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
@@ -19,7 +21,7 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t $FRONT_IMAGE_URI:$IMAGE_TAG ./front
-      - docker build -t $BACK_IMAGE_URI:$IMAGE_TAG .back
+      - docker build -t $BACK_IMAGE_URI:$IMAGE_TAG ./back
   post_build: 
     commands: 
       - echo Build completed on `date`
