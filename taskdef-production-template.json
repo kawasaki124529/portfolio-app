@@ -1,7 +1,7 @@
 [
   {
     "name": "front",
-    "image": "101696717337.dkr.ecr.ap-northeast-1.amazonaws.com/front:0.13",
+    "image": "<IMAGE_FRONT_NAME>",
     "cpu": 500,
     "portMappings": [
       {
@@ -14,7 +14,7 @@
   },
   {
     "name": "back",
-    "image": "101696717337.dkr.ecr.ap-northeast-1.amazonaws.com/back:0.8",
+    "image": "<IMAGE_BACK_NAME>",
     "cpu": 450,
     "portMappings": [
       {
