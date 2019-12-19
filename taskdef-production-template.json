@@ -1,28 +1,32 @@
-[
-  {
-    "name": "front",
-    "image": "<IMAGE_FRONT_NAME>",
-    "cpu": 500,
-    "portMappings": [
-      {
-        "containerPort": 3000,
-        "hostPort": 80
-      }
-    ],
-    "memory": 500,
-    "essential": true
-  },
-  {
-    "name": "back",
-    "image": "<IMAGE_BACK_NAME>",
-    "cpu": 450,
-    "portMappings": [
-      {
-        "containerPort": 3000,
-        "hostPort": 3000
-      }
-    ],
-    "memory": 450,
-    "essential": false
-  }
-]
+{
+  "executionRoleArn": "arn:aws:iam::$AWS_ACCOUNT_ID:role/codedeploy-role",
+  "family": "portfolio",
+  "containerDefinitions": [
+    {
+      "name": "front",
+      "image": "<IMAGE_FRONT_NAME>",
+      "cpu": 500,
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 80
+        }
+      ],
+      "memory": 500,
+      "essential": true
+    },
+    {
+      "name": "back",
+      "image": "<IMAGE_BACK_NAME>",
+      "cpu": 450,
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 3000
+        }
+      ],
+      "memory": 450,
+      "essential": false
+    }
+  ]
+}
