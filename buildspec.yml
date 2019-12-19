@@ -30,3 +30,8 @@ phases:
       # タスク定義のイメージ名を書き換える
       - cat taskdef-production-template.json | sed -e s@\<IMAGE_FRONT_NAME\>@$FRONT_IMAGE_URI:$IMAGE_TAG@ -e s@\<IMAGE_BACK_NAME\>@$BACK_IMAGE_URI:$IMAGE_TAG@ > taskdef.json
 
+# taskdef.json を含むアーティファクトのサイズを 3MB 未満にすためにartifactsで出力し、CodeDeployへ渡す
+artifacts:
+  files:
+      - appspec.yml
+      - taskdef.json
