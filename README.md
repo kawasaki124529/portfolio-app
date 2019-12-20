@@ -47,6 +47,10 @@ https://www.ourhamburger.site/
   - Certificate Manager
   - VPC
   - CloudWatch
+  - IAM
+  - CodePipeline
+    - CodeBuild
+    - CodeDeploy
 
 ***gem:***
 - rack-cors
@@ -83,7 +87,9 @@ https://www.ourhamburger.site/
 
 ## クラウドアーキテクチャ
 
-![AWS Design (updated)](https://user-images.githubusercontent.com/53758098/70888739-5d08f100-2024-11ea-9a0a-9702e1baceb0.png)
+![AWS Design (updated) (3)](https://user-images.githubusercontent.com/53758098/71232834-f262f880-2336-11ea-80f4-35e241f9248d.png)
+
+AWSCodePipelineを用いてGithubのmasterブランチへのプッシュをウェブフックにしてECSサービスの自動デプロイ(blue/green)を実現しています。
 
 ## 機能一覧
 
@@ -111,5 +117,6 @@ Linux上でdockerを使い開発しています。
 
 - フロントエンドにlodash及びTopicのソート機能の追加(12/17)
 - バックエンドのテストを書き始めました(12/18)
+- CodePipeLineを導入しました（12/20)
 
 
