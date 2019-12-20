@@ -1,5 +1,5 @@
 {
-  "containerDefnitions": [
+  "containerDefinitions": [
     {
       "name": "front",
       "image": "<IMAGE_FRONT_NAME>",
