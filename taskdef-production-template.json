@@ -1,6 +1,5 @@
 {
   "taskDefinition": {
-    "family": "portfolio",
     "containerDefnitions": [
       {
         "name": "front",
@@ -28,6 +27,7 @@
         "memory": 450,
         "essential": false
       }
-    ]
+    ],
+    "family": "ecs-portfolio"
   }
 }
