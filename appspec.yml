@@ -6,4 +6,4 @@ Resources:
         TaskDefinition: "<TASK_DEFINITION>"
         LoadBalancerInfo:
             ContainerName: "front"
-            ContainerPort: "80"
+            ContainerPort: "3000"

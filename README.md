@@ -25,6 +25,7 @@ https://www.ourhamburger.site/
 - FrontエンドにNuxt.jsを採用し、SSR（サーバーサイドレンダリング）で発信している点
 - 外部API（HotPepparAPI,GoogleAPI）を利用し機能を追加している点
 - AWSを使いALBを通すことで常時SSL通信を行っている点
+- Codepipelineを使いCDラインを構築している点
 
 ## 使用技術
 
