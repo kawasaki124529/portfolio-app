@@ -22,10 +22,11 @@ https://www.ourhamburger.site/
 ## 特に見ていただきたい部分
 
 - Dockerを使いこなし、ECS/ECRで本番環境をEC2インスタンス内で実行していること
-- FrontエンドにNuxt.jsを採用し、SSR（サーバーサイドレンダリング）で発信している点
-- 外部API（HotPepparAPI,GoogleAPI）を利用し機能を追加している点
 - AWSを使いALBを通すことで常時SSL通信を行っている点
 - Codepipelineを使いCDラインを構築している点
+- FrontエンドにNuxt.jsを採用し、SSR（サーバーサイドレンダリング）で発信している点
+- 外部API（HotPepparAPI,GoogleAPI）を利用し機能を追加している点
+- 機能は少ないがvuejsを使いこなして、トランジションやモーダル、バリデーションなどこだわりを持ってUIを作っている点。
 
 ## 使用技術
 
@@ -104,11 +105,11 @@ AWSCodePipelineを用いてGithubのmasterブランチへのプッシュをウ�
 
 ## 開発環境
 
-windowns10 Home EditionのPCを利用しています。
+windows10 Home EditionのPCを利用しています。
 このOSではDockerが使うことが難しいため、vmwareで仮想Linux(ubuntu)を立ち上げて
 Linux上でdockerを使い開発しています。
 
-開発当時はvagrantの存在を知らなかったため、今後windownsで開発していくならvagrantの導入を検討したいですが、それよりも早くエンジニアリングでお金を稼ぐことでMacを購入したいと思っています。
+開発当時はvagrantの存在を知らなかったため、今後windowsで開発していくならvagrantの導入を検討したいですが、それよりも早くエンジニアリングでお金を稼ぐことでMacを購入したいと思っています。
 
 ## その他
 
