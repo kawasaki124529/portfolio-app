@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Topics", type: :request do
-
+RSpec.describe 'Topics', type: :request do
   before(:each) do
     @topic = create(:topic)
   end
@@ -14,8 +15,8 @@ RSpec.describe "Topics", type: :request do
     end
   end
 
-  describe "POST /api/topics" do
-    it "新しいトピックを投稿する POST#create" do
+  describe 'POST /api/topics' do
+    it '新しいトピックを投稿する POST#create' do
       post '/api/topics', params: { params: attributes_for(:topic) }
       json = JSON.parse(response.body)
       expect(response.status).to eq(200)
