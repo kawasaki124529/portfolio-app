@@ -10,6 +10,7 @@
 https://www.ourhamburger.site/
 
 ![toppage](https://user-images.githubusercontent.com/53758098/70888286-56c64500-2023-11ea-9f00-a9ade19cf59e.png)
+![result](https://user-images.githubusercontent.com/53758098/71321272-5aae0780-24fa-11ea-8e5a-759205641dd1.gif)
 
 
 ***テストユーザーログイン:***
@@ -24,7 +25,7 @@ https://www.ourhamburger.site/
 - Dockerを使いこなし、ECS/ECRで本番環境をEC2インスタンス内で実行していること
 - AWSを使いALBを通すことで常時SSL通信を行っている点
 - Codepipelineを使いCDラインを構築している点
-- FrontエンドにNuxt.jsを採用し、SSR（サーバーサイドレンダリング）で発信している点
+- FrontエンドにNuxt.jsを採用し、SSR（サーバーサイドレンダリング）で配信している点
 - 外部API（HotPepparAPI,GoogleAPI）を利用し機能を追加している点
 - 機能は少ないがvuejsを使いこなして、トランジションやモーダル、バリデーションなどこだわりを持ってUIを作っている点。
 
