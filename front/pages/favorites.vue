@@ -124,7 +124,7 @@
                             </div>
                             <v-divider />
                             <div>
-                              <br />
+                              <br>
                               <span>{{ topic.review }}</span>
                             </div>
                           </v-card-text>

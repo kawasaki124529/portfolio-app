@@ -35,5 +35,8 @@
   "prettier.eslintIntegration": true,
   "git.autofetch": true,
   "terminal.integrated.rendererType": "dom",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
 }
 

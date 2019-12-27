@@ -57,7 +57,7 @@
             absolute
             bottom
             color="deep-purple accent-4"
-          ></v-progress-linear>
+          />
         </v-card>
       </v-container>
     </v-flex>
@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     login() {
-      this.loading = true;
+      this.loading = true
       this.$store.dispatch("auth/login", {
         email: this.email,
         password: this.password
@@ -88,7 +88,7 @@ export default {
     },
     // テストユーザー用ログイン
     easyLogin() {
-      this.loading = true;
+      this.loading = true
       this.$store.dispatch("auth/login", {
         email: "test@test.com",
         password: "testtest"

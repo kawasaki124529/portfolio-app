@@ -71,7 +71,11 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer />
-              <v-btn color="primary" :disabled="invalid" @click.prevent="register">
+              <v-btn
+                color="primary"
+                :disabled="invalid"
+                @click.prevent="register"
+              >
                 SIGNUP
               </v-btn>
             </v-card-actions>
@@ -83,7 +87,7 @@
             absolute
             bottom
             color="deep-purple accent-4"
-          ></v-progress-linear>
+          />
         </v-card>
       </v-container>
     </v-flex>
@@ -109,7 +113,7 @@ export default {
   methods: {
     // railsのUser登録にアクセスしsign_up処理
     register() {
-      this.loading = true;
+      this.loading = true
       this.$store.dispatch("auth/sign_up", {
         email: this.email,
         password: this.password,

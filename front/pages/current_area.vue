@@ -35,7 +35,7 @@
           <h4>現在地</h4>
           <p>緯度：{{ latitude }}, 経度：{{ longitude }}</p>
           <p id="current_address" />
-          <br>
+          <br >
           <p>検索結果：{{ length }}件</p>
         </v-content>
         <!-- 検索結果０件の場合 -->
@@ -43,7 +43,7 @@
           近くに該当する店が見つかりませんでした
         </v-alert>
       </div>
-      <br>
+      <br >
       <!-- 検索結果：店舗情報 -->
       <v-content v-for="shop in shops" :key="shop.id">
         <v-card class="grey lighten-3 ma-1">
@@ -69,13 +69,13 @@
             <div>
               <span class="brown--text">{{ shop.name }}</span
               ><br />
-              <span class="grey--text">・平均予算：</span><br>
+              <span class="grey--text">・平均予算：</span><br >
               <span> {{ shop.budget.average }}</span
               ><br />
-              <span class="grey--text">・アクセス：</span><br>
+              <span class="grey--text">・アクセス：</span><br >
               <span>{{ shop.mobile_access }}</span
               ><br />
-              <span class="grey--text">・営業時間：</span><br>
+              <span class="grey--text">・営業時間：</span><br >
               <span>{{ shop.open }}</span>
             </div>
           </v-card-title>

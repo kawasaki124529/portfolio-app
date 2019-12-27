@@ -19,12 +19,7 @@
                     width="100%"
                   >
                     <template v-slot:placeholder>
-                      <v-layout
-                        fill-height
-                        align-center
-                        justify-center
-                        ma-0
-                      >
+                      <v-layout fill-height align-center justify-center ma-0>
                         <v-progress-circular
                           indeterminate
                           color="grey lighten-5"
@@ -35,10 +30,8 @@
                   <!-- 画像下テキスト欄 -->
                   <v-card-title>
                     <div>
-                      <span
-                        class="subtitle-2 font-weight-medium font-italic"
-                        >{{ topic.shop_name }}</span
-                      >
+                      <span class="subtitle-2 font-weight-medium font-italic">
+                        {{ topic.shop_name }}</span>
                       <div class="d-flex">
                         <v-rating
                           :value="topic.rating"
@@ -92,15 +85,13 @@
                     </v-card-title>
                     <v-card-text>
                       <div class="d-inline-flex">
-                        <span
-                          class="title brown--text text--darken-1 mr-2"
-                        >{{ topic.shop_name }}</span>
+                        <span class="title brown--text text--darken-1 mr-2">{{
+                          topic.shop_name
+                        }}</span>
                         <span
                           class="subheading brown--text text--darken-1 pt-2 mr-2"
                         >・{{ topic.meals }}</span>
-                        <span
-                          class="subheading brown--text text--darken-2 pt-2"
-                        >予算：{{ topic.price }}</span>
+                        <span class="subheading brown--text text--darken-2 pt-2">予算：{{ topic.price }}</span>
                         <v-rating
                           class="ml-1 mt-1"
                           :value="topic.rating"
@@ -115,7 +106,7 @@
                       </div>
                       <v-divider />
                       <div>
-                        <br />
+                        <br></br>
                         <span>{{ topic.review }}</span>
                       </div>
                     </v-card-text>
@@ -155,7 +146,7 @@ import CommentArea from "./CommentArea.vue"
 export default {
   components: {
     LikeBtn,
-    CommentArea,
+    CommentArea
   },
   props: ["topics"],
   data() {
@@ -166,8 +157,7 @@ export default {
   computed: {
     isLoggedIn() {
       return this.$store.state.auth.isLoggedIn
-    },
-  },
+    }
+  }
 }
 </script>
-

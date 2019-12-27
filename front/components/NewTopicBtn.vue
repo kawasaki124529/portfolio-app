@@ -164,7 +164,7 @@
                       />
                     </ValidationProvider>
                   </v-card-actions>
-                  <hr />
+                  <hr>
                 </v-flex>
                 <!-- 画像選択欄 -->
                 <v-flex xs12>
@@ -214,7 +214,7 @@
               v-show="loading"
               :indeterminate="loading"
               color="green"
-            ></v-progress-circular>
+            />
           </v-card-actions>
         </validation-observer>
       </v-card>

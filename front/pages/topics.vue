@@ -5,13 +5,13 @@
       <v-card class="grey lighten-3 mt-4 mb-4 pa-3 ">
         <v-container fluid>
           <v-radio-group v-model="sortKey" row>
-            <v-radio label="投稿が新しい順" value="date"></v-radio>
-            <v-radio label="いいね数" value="likes"></v-radio>
-            <v-radio label="おすすめ度" value="rating"></v-radio>
+            <v-radio label="投稿が新しい順" value="date" />
+            <v-radio label="いいね数" value="likes" />
+            <v-radio label="おすすめ度" value="rating" />
           </v-radio-group>
         </v-container>
         <!-- トピックコンポーネントにソートされたデータを渡す -->
-        <AllTopics :topics="TopicOrderBy"></AllTopics>
+        <AllTopics :topics="TopicOrderBy" />
       </v-card>
       <!-- トピック投稿コンポーネント -->
       <NewTopicBtn v-show="isLoggedIn" />
@@ -46,16 +46,14 @@ export default {
     },
     // セレクタの値によってソートの切り替え
     TopicOrderBy() {
-      if (this.sortKey === "date" ) {
-        return _.orderBy(this.topics, ['created_at'], ['desc']);
+      if (this.sortKey === "date") {
+        return _.orderBy(this.topics, ["created_at"], ["desc"])
+      } else if (this.sortKey === "likes") {
+        return _.orderBy(this.topics, [`likes`], ["desc"])
+      } else if (this.sortKey === "rating") {
+        return _.orderBy(this.topics, [`rating`], ["desc"])
       }
-      else if ( this.sortKey === "likes" ) {
-        return _.orderBy(this.topics, [`likes`], ['desc']);
-      }
-      else if ( this.sortKey === "rating" ) {
-        return _.orderBy(this.topics, [`rating`], ['desc']);
-      }
-    },
+    }
   }
 }
 </script>
