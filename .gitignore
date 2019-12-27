@@ -4,3 +4,7 @@ db/mysql
 ./q
 
 q
+
+node_mudules/*
+
+/node_mudules
