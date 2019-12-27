@@ -129,19 +129,12 @@
                           </v-card-text>
                           <v-card-actions>
                             <v-spacer />
-                            <!-- コメントコンポーネント -->
-                            <v-btn
-                              outlined
-                              color="grey darken-1"
-                              @click="comments = !comments"
-                            >
-                              <v-icon>far fa-comment-dots</v-icon>
-                            </v-btn>
                             <!-- トピック削除コンポーネント -->
                             <DeleteBtn :topic="topic" />
                           </v-card-actions>
                           <v-slide-y-transition>
-                            <v-card-actions v-show="comments">
+                            <!-- コメントコンポーネント -->
+                            <v-card-actions>
                               <CommentArea :topic="topic" />
                             </v-card-actions>
                           </v-slide-y-transition>
