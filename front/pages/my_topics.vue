@@ -169,11 +169,11 @@ export default {
     DeleteBtn
   },
   // railsのTopic/likesアクションにアクセスし、お気に入りトピックを取得
-  async asyncData({ $axios, route }) {
+  async asyncData({ $axios, store }) {
     const res = await $axios.get(
       process.env.apiBaseUrl + "/api/topics/mytopic",
       {
-        params: { user_id: route.params.user_id }
+        params: { user_id: store.state.auth.User.user.id }
       }
     )
     console.log(res)

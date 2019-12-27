@@ -16,7 +16,7 @@
         <v-icon>fas fa-search-location fa-xs</v-icon>
         現在地周辺のお店を探す
       </v-btn>
-      <v-btn class="white--text" text large nuxt to="/topics">
+      <v-btn class="white--text" text large nuxt to="/">
         <v-icon>fas fa-camera-retro fa-xs</v-icon>
         みんなの写真
       </v-btn>
@@ -75,12 +75,7 @@
           </v-list-item-content>
         </v-list-item>
         <!-- 右リスト内 自分の投稿ボタン（ログイン時のみ表示） -->
-        <v-list-item
-          v-if="isLoggedIn"
-          nuxt
-          :to="{ name: 'my_topics', params: { user_id: user.user.id } }"
-          exact
-        >
+        <v-list-item nuxt to="/my_topics" exact>
           <v-list-item-action>
             <v-icon>fas fa-camera</v-icon>
           </v-list-item-action>
@@ -98,7 +93,7 @@
           </v-list-item-content>
         </v-list-item>
         <!-- 右リスト内 みんなの写真ボタン -->
-        <v-list-item nuxt to="/topics" exact>
+        <v-list-item nuxt to="/" exact>
           <v-list-item-action>
             <v-icon>fas fa-camera-retro</v-icon>
           </v-list-item-action>
