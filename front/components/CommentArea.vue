@@ -44,7 +44,7 @@ export default {
   props: ["topic"],
   data() {
     return {
-      content: ""
+      content: "",
     }
   },
   computed: {

@@ -29,7 +29,10 @@ export default {
         })
         .then(res => {
           console.log(res)
-          this.$router.go({ path: "/my_topics", force: true })
+          this.$router.go({
+            path: this.$router.currentRoute.path,
+            force: true
+          })
         })
         .catch(error => {
           console.log(error)
