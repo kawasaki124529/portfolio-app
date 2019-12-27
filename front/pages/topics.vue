@@ -9,6 +9,7 @@
             <v-radio label="いいね数" value="likes" />
             <v-radio label="おすすめ度" value="rating" />
           </v-radio-group>
+          <NewTopicBtn2 v-show="isLoggedIn" />
         </v-container>
         <!-- トピックコンポーネントにソートされたデータを渡す -->
         <AllTopics :topics="TopicOrderBy" />
@@ -21,11 +22,13 @@
 
 <script>
 import NewTopicBtn from "../components/NewTopicBtn.vue"
+import NewTopicBtn2 from "../components/NewTopicBtn2.vue"
 import AllTopics from "../components/AllTopics.vue"
 
 export default {
   components: {
     NewTopicBtn,
+    NewTopicBtn2,
     AllTopics
   },
   // ページ読み込み時にTopicコントローラーにgetリクエスト
