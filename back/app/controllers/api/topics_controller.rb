@@ -49,9 +49,9 @@ module Api
     def destroy
       @topic = Topic.find_by(id: params[:topic_id])
       if @topic.destroy
-        render json: {
-          status: 200
-        }
+        @user = User.find_by(id: @topic.user_id)
+        @topics = @user.topics
+        render json: @topics, status:200
       else
         render json: {
           status: 401
