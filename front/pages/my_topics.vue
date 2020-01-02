@@ -10,7 +10,7 @@
         <v-container fluid grid-list-md>
           <v-item-group>
             <v-layout row wrap>
-              <v-flex v-for="(topic, i) in topics" :key="i" xs12 sm6 md4>
+              <v-flex v-for="(topic, i) in topics.data" :key="i" xs12 sm6 md4>
                 <!-- トピック個別 -->
                 <v-item v-slot:default="{ active, toggle }">
                   <v-hover>
@@ -130,7 +130,9 @@
                           <v-card-actions>
                             <v-spacer />
                             <!-- トピック削除コンポーネント -->
-                            <DeleteBtn :topic="topic" />
+                            <v-btn outlined color="grey darken-1" @click="deleteTopic(topic.id)">
+                              <v-icon>far fa-trash-alt</v-icon>
+                            </v-btn>
                           </v-card-actions>
                           <v-slide-y-transition>
                             <!-- コメントコンポーネント -->
@@ -154,28 +156,26 @@
 
 <script>
 import CommentArea from "../components/CommentArea.vue"
-import DeleteBtn from "../components/DeleteBtn.vue"
 
 export default {
+  data() {
+    return {
+      active: false
+    }
+  },
   components: {
     CommentArea,
-    DeleteBtn
   },
   // railsのTopic/likesアクションにアクセスし、お気に入りトピックを取得
-  async asyncData({ $axios, store }) {
-    const res = await $axios.get(
+  async asyncData({ app, store }) {
+    const res = await app.$axios.get(
       process.env.apiBaseUrl + "/api/topics/mytopic",
       {
         params: { user_id: store.state.auth.User.user.id }
       }
     )
     console.log(res)
-    return { topics: res.data }
-  },
-  data() {
-    return {
-      comments: false
-    }
+    return { topics: res }
   },
   computed: {
     isLoggedIn() {
@@ -183,6 +183,27 @@ export default {
     },
     user() {
       return this.$store.state.auth.User
+    }
+  },
+  methods: {
+    // rails側のdestroyアクションにリクエストするメソッド
+    deleteTopic(id) {
+      this.$axios
+        .delete(process.env.apiBaseUrl + "/api/topics", {
+          params: {
+            topic_id: id
+          }
+        })
+        .then(res => {
+          console.log(res)
+          if (res.status === 200) {
+         // $set を使って topics の要素を更新。
+            this.$set(this.topics, "data", res.data)
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 }
