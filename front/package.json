@@ -22,7 +22,7 @@
     "date-fns": "^2.8.1",
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.15",
-    "nuxt": "^2.11.0",
+    "nuxt": "^2.15.8",
     "nuxt-webfontloader": "^1.1.0",
     "vee-validate": "^3.2.1",
     "vuex-persistedstate": "^2.7.0"
